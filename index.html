@@ -74,7 +74,7 @@ a { color: var(--amber); text-decoration: none; }
 .bg-dark3 { background: var(--bg3) !important; }
 
 /* ── ABOUT ── */
-.photo-wrap { width: 100%; aspect-ratio: 3/4; overflow: hidden; border: 1px solid var(--border-faint); position: relative; }
+.photo-wrap { width: 100%; aspect-ratio: 3/4; overflow: hidden; border: 1px solid var(--border-faint); position: relative; border-radius: 24px; }
 .photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: contrast(1.05) brightness(.97) saturate(.75); }
 .about-badge { position: absolute; bottom: -1.2rem; right: -1.2rem; width: 160px; height: 52px; background: var(--amber); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; color: #08090d; }
 .about-body { color: #7a7870; font-size: 13px; line-height: 1.9; }
@@ -89,6 +89,13 @@ a { color: var(--amber); text-decoration: none; }
 .skill-icon { width: 42px; height: 42px; background: var(--amber-glow); border: 1px solid var(--border-amber); display: flex; align-items: center; justify-content: center; font-size: 1.15rem; margin-bottom: 1rem; }
 .skill-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .95rem; margin-bottom: .4rem; color: #e8e6de; }
 .skill-desc { font-size: 12px; color: #7a7870; line-height: 1.8; }
+.progress { background: var(--bg2); border-radius: 0; height: 4px; margin-top: 10px; }
+.progress-bar { background: var(--amber); border-radius: 0; transition: width 1.2s ease; width: 0; }
+
+.toast-container { position: fixed; bottom: 2rem; right: 2rem; z-index: 9999; }
+.toast { background: var(--bg3); border: 1px solid var(--border-amber); border-radius: 0; color: #e8e6de; font-family: 'JetBrains Mono', monospace; font-size: 13px; min-width: 280px; }
+.toast-header { background: var(--amber); color: #08090d; font-family: 'Syne', sans-serif; font-weight: 700; border-radius: 0; border-bottom: none; }
+.toast-header .btn-close { filter: invert(0); }
 .tag { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; padding: 2px 9px; border: 1px solid var(--border-faint); color: var(--text-dim); display: inline-block; margin: 3px 2px 0; }
 .tag-amber { border-color: var(--border-amber); color: var(--amber-dim); }
 
@@ -241,22 +248,22 @@ footer { background: #08090d; border-top: 1px solid var(--border-faint); padding
     </div>
     <div class="row g-0 reveal" style="border:1px solid var(--border-faint);">
       <div class="col-md-6 col-lg-4" style="border-right:1px solid var(--border-faint);border-bottom:1px solid var(--border-faint);">
-        <div class="skill-card"><div class="skill-icon">☕</div><div class="skill-name" data-i18n="skills.s1.name">Ecosistema Java</div><div class="skill-desc" data-i18n="skills.s1.desc">Sviluppo enterprise con focus su affidabilità, performance e manutenibilità.</div><div class="mt-2"><span class="tag tag-amber">Java EE</span><span class="tag tag-amber">Spring Boot</span><span class="tag">Servlet/JSP</span><span class="tag">Maven</span></div></div>
+        <div class="skill-card"><div class="skill-icon">☕</div><div class="skill-name" data-i18n="skills.s1.name">Ecosistema Java</div><div class="skill-desc" data-i18n="skills.s1.desc">Sviluppo enterprise con focus su affidabilità, performance e manutenibilità.</div><div class="progress"><div class="progress-bar" data-width="90"></div></div><div class="mt-2"><span class="tag tag-amber">Java EE</span><span class="tag tag-amber">Spring Boot</span><span class="tag">Servlet/JSP</span><span class="tag">Maven</span></div></div>
       </div>
       <div class="col-md-6 col-lg-4" style="border-right:1px solid var(--border-faint);border-bottom:1px solid var(--border-faint);">
-        <div class="skill-card"><div class="skill-icon">🐳</div><div class="skill-name" data-i18n="skills.s2.name">DevOps &amp; CI/CD</div><div class="skill-desc" data-i18n="skills.s2.desc">Automazione della pipeline di delivery con containerizzazione moderna.</div><div class="mt-2"><span class="tag tag-amber">Docker</span><span class="tag tag-amber">Kubernetes</span><span class="tag">Jenkins</span><span class="tag">GitLab CI</span></div></div>
+        <div class="skill-card"><div class="skill-icon">🐳</div><div class="skill-name" data-i18n="skills.s2.name">DevOps &amp; CI/CD</div><div class="skill-desc" data-i18n="skills.s2.desc">Automazione della pipeline di delivery con containerizzazione moderna.</div><div class="progress"><div class="progress-bar" data-width="75"></div></div><div class="mt-2"><span class="tag tag-amber">Docker</span><span class="tag tag-amber">Kubernetes</span><span class="tag">Jenkins</span><span class="tag">GitLab CI</span></div></div>
       </div>
       <div class="col-md-6 col-lg-4" style="border-bottom:1px solid var(--border-faint);">
-        <div class="skill-card"><div class="skill-icon">🗄️</div><div class="skill-name" data-i18n="skills.s3.name">Backend &amp; Dati</div><div class="skill-desc" data-i18n="skills.s3.desc">Progettazione e interrogazione di database relazionali con attenzione a integrità e performance.</div><div class="mt-2"><span class="tag tag-amber">DB2</span><span class="tag tag-amber">SQL</span><span class="tag">REST APIs</span><span class="tag">Tomcat</span></div></div>
+        <div class="skill-card"><div class="skill-icon">🗄️</div><div class="skill-name" data-i18n="skills.s3.name">Backend &amp; Dati</div><div class="skill-desc" data-i18n="skills.s3.desc">Progettazione e interrogazione di database relazionali con attenzione a integrità e performance.</div><div class="progress"><div class="progress-bar" data-width="85"></div></div><div class="mt-2"><span class="tag tag-amber">DB2</span><span class="tag tag-amber">SQL</span><span class="tag">REST APIs</span><span class="tag">Tomcat</span></div></div>
       </div>
       <div class="col-md-6 col-lg-4" style="border-right:1px solid var(--border-faint);">
-        <div class="skill-card"><div class="skill-icon">🛠️</div><div class="skill-name" data-i18n="skills.s4.name">Strumenti &amp; Workflow</div><div class="skill-desc" data-i18n="skills.s4.desc">Produttivo con tooling moderno e workflow di version control collaborativi.</div><div class="mt-2"><span class="tag tag-amber">IntelliJ IDEA</span><span class="tag">Git/GitLab</span><span class="tag">YouTrack</span><span class="tag">Linux</span></div></div>
+        <div class="skill-card"><div class="skill-icon">🛠️</div><div class="skill-name" data-i18n="skills.s4.name">Strumenti &amp; Workflow</div><div class="skill-desc" data-i18n="skills.s4.desc">Produttivo con tooling moderno e workflow di version control collaborativi.</div><div class="progress"><div class="progress-bar" data-width="88"></div></div><div class="mt-2"><span class="tag tag-amber">IntelliJ IDEA</span><span class="tag">Git/GitLab</span><span class="tag">YouTrack</span><span class="tag">Linux</span></div></div>
       </div>
       <div class="col-md-6 col-lg-4" style="border-right:1px solid var(--border-faint);">
-        <div class="skill-card"><div class="skill-icon">🏠</div><div class="skill-name" data-i18n="skills.s5.name">Self-Hosting</div><div class="skill-desc" data-i18n="skills.s5.desc">Gestione infrastruttura personale: home server, automazione e reverse proxy.</div><div class="mt-2"><span class="tag tag-amber">Home Assistant</span><span class="tag">Nextcloud</span><span class="tag">DuckDNS</span></div></div>
+        <div class="skill-card"><div class="skill-icon">🏠</div><div class="skill-name" data-i18n="skills.s5.name">Self-Hosting</div><div class="skill-desc" data-i18n="skills.s5.desc">Gestione infrastruttura personale: home server, automazione e reverse proxy.</div><div class="progress"><div class="progress-bar" data-width="70"></div></div><div class="mt-2"><span class="tag tag-amber">Home Assistant</span><span class="tag">Nextcloud</span><span class="tag">DuckDNS</span></div></div>
       </div>
       <div class="col-md-6 col-lg-4">
-        <div class="skill-card"><div class="skill-icon">📐</div><div class="skill-name" data-i18n="skills.s6.name">Architettura</div><div class="skill-desc" data-i18n="skills.s6.desc">Sistemi distribuiti, microservizi e design di API gateway.</div><div class="mt-2"><span class="tag tag-amber">Microservizi</span><span class="tag">API Gateway</span><span class="tag">MVC</span><span class="tag">Batch</span></div></div>
+        <div class="skill-card"><div class="skill-icon">📐</div><div class="skill-name" data-i18n="skills.s6.name">Architettura</div><div class="skill-desc" data-i18n="skills.s6.desc">Sistemi distribuiti, microservizi e design di API gateway.</div><div class="progress"><div class="progress-bar" data-width="72"></div></div><div class="mt-2"><span class="tag tag-amber">Microservizi</span><span class="tag">API Gateway</span><span class="tag">MVC</span><span class="tag">Batch</span></div></div>
       </div>
     </div>
   </div>
@@ -348,7 +355,7 @@ footer { background: #08090d; border-top: 1px solid var(--border-faint); padding
         <div class="section-label" data-i18n="contact.label">Parliamo</div>
         <h2 class="section-title" data-i18n="contact.title">Scrivimi.</h2>
         <p class="about-body mb-4" data-i18n="contact.desc">Aperto a progetti interessanti, sfide complesse e conversazioni su architettura software, DevOps o pensiero a lungo termine.</p>
-        <a href="mailto:your@email.com" class="contact-link"><span>📧 &nbsp; your@email.com</span><span class="arrow">→</span></a>
+        <a href="mailto:your@email.com" class="contact-link"><span>📧 &nbsp; stapanealessandro@gmail.com</span><span class="arrow">→</span></a>
         <a href="https://github.com/Alw12" target="_blank" class="contact-link"><span>🐙 &nbsp; github.com/Alw12</span><span class="arrow">→</span></a>
         <a href="https://linkedin.com" target="_blank" class="contact-link"><span>💼 &nbsp; LinkedIn</span><span class="arrow">→</span></a>
       </div>
@@ -365,10 +372,23 @@ footer { background: #08090d; border-top: 1px solid var(--border-faint); padding
 <!-- FOOTER -->
 <footer>
   <div class="container d-flex justify-content-between flex-wrap gap-2">
-    <span>© 2025 Alessandro Stapane</span>
+    <span>© 2026 Alessandro Stapane</span>
     <span data-i18n="footer.built">Fatto con ☕ e spirito Java</span>
   </div>
 </footer>
+
+<!-- TOAST -->
+<div class="toast-container">
+  <div id="contactToast" class="toast" role="alert" data-bs-delay="4000">
+    <div class="toast-header">
+      <strong class="me-auto">✓ Messaggio inviato</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+    </div>
+    <div class="toast-body" id="toast-body">
+      Grazie! Ti risponderò il prima possibile.
+    </div>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -382,7 +402,8 @@ const translations = {
     "badge.personal":"Personale","badge.finance":"Finanza","badge.enterprise":"Enterprise",
     "exp.label":"Dove ho lavorato","exp.title":"Esperienza.","exp.e1.date":"2024 — Presente","exp.e1.role":"Java Developer · Empoli, Toscana","exp.e1.desc":"Sviluppo e manutenzione di applicazioni Java EE enterprise per il settore bancario. Batch processing, REST API e tooling interno con Servlet/JSP, Maven, Tomcat e DB2. Transizione verso microservizi e cloud-native.","exp.e2.company":"Junior Developer","exp.e2.role":"Sviluppo Software · Ruolo Precedente","exp.e2.desc":"Esperienza entry-level con competenze fondamentali in OOP, gestione database e sviluppo applicazioni. Padronanza di Java, SQL e version control.",
     "contact.label":"Parliamo","contact.title":"Scrivimi.","contact.desc":"Aperto a progetti interessanti, sfide complesse e conversazioni su architettura software, DevOps o pensiero a lungo termine.","contact.fname":"Nome","contact.fname.ph":"Il tuo nome","contact.femail":"Email","contact.fmsg":"Messaggio","contact.fmsg.ph":"Di cosa vuoi parlarmi?","contact.send":"Invia messaggio","contact.sent":"✓ Inviato!",
-    "footer.built":"Fatto con ☕ e spirito Java"
+    "footer.built":"Fatto con ☕ e spirito Java",
+    "toast.title":"✓ Messaggio inviato","toast.body":"Grazie! Ti risponderò il prima possibile."
   },
   en: {
     "nav.about":"About","nav.skills":"Skills","nav.projects":"Projects","nav.experience":"Experience","nav.contact":"Contact",
@@ -393,18 +414,20 @@ const translations = {
     "badge.personal":"Personal","badge.finance":"Finance","badge.enterprise":"Enterprise",
     "exp.label":"Where I've worked","exp.title":"Experience.","exp.e1.date":"2024 — Present","exp.e1.role":"Java Developer · Empoli, Tuscany","exp.e1.desc":"Development and maintenance of enterprise Java EE financial applications. Batch processing, REST API integrations, and internal tooling with Servlet/JSP, Maven, Tomcat and DB2. Transitioning toward microservices and cloud-native infrastructure.","exp.e2.company":"Junior Developer","exp.e2.role":"Software Development · Previous Role","exp.e2.desc":"Entry-level experience building foundational skills in OOP, database management, and application development. Proficiency in Java, SQL, and collaborative version control.",
     "contact.label":"Let's talk","contact.title":"Get in touch.","contact.desc":"Open to interesting projects, challenging problems, and conversations about software architecture, DevOps, or long-term thinking.","contact.fname":"Name","contact.fname.ph":"Your name","contact.femail":"Email","contact.fmsg":"Message","contact.fmsg.ph":"What's on your mind?","contact.send":"Send message","contact.sent":"✓ Sent!",
-    "footer.built":"Built with ☕ and Java spirit"
+    "footer.built":"Built with ☕ and Java spirit",
+    "toast.title":"✓ Message sent","toast.body":"Thanks! I'll get back to you as soon as possible."
   },
   zh: {
     "nav.about":"关于我","nav.skills":"技能","nav.projects":"项目","nav.experience":"经历","nav.contact":"联系",
     "hero.tag":"欢迎合作机会","hero.h1":"开发工程师","hero.desc":"专注企业级应用和全栈解决方案的Java开发者。热爱简洁架构、DevOps自动化和经久耐用的软件。","hero.cta1":"查看项目","hero.cta2":"联系我","hero.scroll":"向下滚动",
-    "about.label":"关于我","about.title":"构建可扩展<br>的系统。","about.p1":"我是一名来自<strong>意大利托斯卡纳恩波利</strong>的Java开发者，专注于金融行业的企业级Java EE应用开发。我在后端架构与DevOps自动化的交叉点上找到了自己的方向。","about.p2":"业余时间我喜欢构建个人工具——从带实时市场数据的<strong>投资组合追踪器</strong>到<strong>CI/CD自动化GUI</strong>。我相信好的软件应该简洁、快速、坚不可摧。","about.p3":"我正借助<strong>Spring Boot、Docker和Kubernetes</strong>扩展微服务和云原生领域的专业能力。","about.stat1":"年经验","about.stat2":"项目","about.stat3":"好奇心",
+    "about.label":"关于我","about.title":"构建可扩展<br>的系统。","about.p1":"我是一名来自<strong>意大利托斯卡纳恩波利</strong>的Java开发者，专注于金融行业的企业级Java EE应用开发。","about.p2":"业余时间我喜欢构建个人工具——从带实时市场数据的<strong>投资组合追踪器</strong>到<strong>CI/CD自动化GUI</strong>。","about.p3":"我正借助<strong>Spring Boot、Docker和Kubernetes</strong>扩展微服务和云原生领域的专业能力。","about.stat1":"年经验","about.stat2":"项目","about.stat3":"好奇心",
     "skills.label":"我的工具箱","skills.title":"技术栈与<br>专业技能。","skills.s1.name":"Java生态系统","skills.s1.desc":"专注于可靠性、性能和可维护性的企业级开发。","skills.s2.name":"DevOps与CI/CD","skills.s2.desc":"利用现代容器化技术自动化完整交付流水线。","skills.s3.name":"后端与数据","skills.s3.desc":"设计和查询关系型数据库，注重数据完整性和查询性能。","skills.s4.name":"工具与工作流","skills.s4.desc":"熟练使用现代工具链和版本控制工作流。","skills.s5.name":"自托管服务","skills.s5.desc":"运营个人基础设施：家庭服务器、自动化和反向代理。","skills.s6.name":"软件架构","skills.s6.desc":"分布式系统、微服务模式和API网关设计。",
-    "projects.label":"我的作品","projects.title":"精选<br>项目。","projects.p1.desc":"基于Java Swing的桌面应用，追踪Trade Republic上六个仓位，实时获取Yahoo Finance和CoinGecko数据。内置复利建模PAC模拟器。","projects.p2.desc":"DevOps自动化工具，支持Jenkins任务并行执行、动态加载GitLab分支及自动创建YouTrack工单。","projects.p3.desc":"基于yfinance的网页版投资追踪器，支持精确EUR/USD换算、资产配置图表和历史表现可视化。","projects.p4.desc":"企业级批处理归档系统，实现storicizzaLog()自动化日志归档。通过@SerializedName注解实现大小写不敏感JSON解析。",
+    "projects.label":"我的作品","projects.title":"精选<br>项目。","projects.p1.desc":"基于Java Swing的桌面应用，追踪Trade Republic上六个仓位，实时获取Yahoo Finance和CoinGecko数据。","projects.p2.desc":"DevOps自动化工具，支持Jenkins任务并行执行、动态加载GitLab分支及自动创建YouTrack工单。","projects.p3.desc":"基于yfinance的网页版投资追踪器，支持精确EUR/USD换算、资产配置图表和历史表现可视化。","projects.p4.desc":"企业级批处理归档系统，实现storicizzaLog()自动化日志归档。通过@SerializedName注解实现大小写不敏感JSON解析。",
     "badge.personal":"个人项目","badge.finance":"金融","badge.enterprise":"企业级",
-    "exp.label":"工作经历","exp.title":"职业经历。","exp.e1.date":"2024 — 至今","exp.e1.role":"Java开发工程师 · 恩波利，托斯卡纳","exp.e1.desc":"为银行业开发维护企业级Java EE金融应用。负责批处理系统、REST API集成及内部工具开发。目前参与向微服务和云原生架构的转型。","exp.e2.company":"初级开发工程师","exp.e2.role":"软件开发 · 前职位","exp.e2.desc":"入门级软件开发经验，培养了OOP、数据库管理和应用开发基础技能。精通Java、SQL及协作版本控制工作流。",
+    "exp.label":"工作经历","exp.title":"职业经历。","exp.e1.date":"2024 — 至今","exp.e1.role":"Java开发工程师 · 恩波利，托斯卡纳","exp.e1.desc":"为银行业开发维护企业级Java EE金融应用。负责批处理系统、REST API集成及内部工具开发。目前参与向微服务和云原生架构的转型。","exp.e2.company":"初级开发工程师","exp.e2.role":"软件开发 · 前职位","exp.e2.desc":"入门级软件开发经验，培养了OOP、数据库管理和应用开发基础技能。",
     "contact.label":"联系我","contact.title":"保持联系。","contact.desc":"欢迎探讨有趣项目、技术挑战，以及关于软件架构、DevOps或长远规划的话题。","contact.fname":"姓名","contact.fname.ph":"您的姓名","contact.femail":"邮箱","contact.fmsg":"留言","contact.fmsg.ph":"您想聊些什么？","contact.send":"发送消息","contact.sent":"✓ 已发送！",
-    "footer.built":"用 ☕ 和Java精神打造"
+    "footer.built":"用 ☕ 和Java精神打造",
+    "toast.title":"✓ 消息已发送","toast.body":"谢谢！我会尽快回复您。"
   }
 };
 
@@ -425,15 +448,30 @@ function setLang(lang) {
   }, 150);
 }
 
+// Scroll reveal
 const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), {threshold:0.08, rootMargin:'0px 0px -50px 0px'});
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
+// Animate progress bars on scroll
+const progressObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.progress-bar[data-width]').forEach(bar => {
+        bar.style.width = bar.getAttribute('data-width') + '%';
+      });
+      progressObs.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.2});
+document.querySelectorAll('.skills-grid, .row.g-0.reveal').forEach(el => progressObs.observe(el));
+
+// Toast on form submit
 function handleSend() {
-  const btn = document.getElementById('send-btn');
   const t = translations[currentLang];
-  btn.textContent = t['contact.sent'];
-  btn.style.background = '#28c840';
-  setTimeout(() => { btn.innerHTML = t['contact.send']; btn.style.background = ''; }, 3000);
+  document.querySelector('.toast-header strong').textContent = t['toast.title'];
+  document.getElementById('toast-body').textContent = t['toast.body'];
+  const toastEl = document.getElementById('contactToast');
+  bootstrap.Toast.getOrCreateInstance(toastEl).show();
 }
 </script>
 </body>
