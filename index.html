@@ -3,370 +3,148 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alessandro — Software Developer</title>
+<title>Alessandro Stapane — Software Developer</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #08090d;
-    --bg2: #0e1018;
-    --bg3: #13151f;
-    --amber: #f0a500;
-    --amber-dim: #a87200;
-    --amber-glow: rgba(240,165,0,0.12);
-    --text: #e8e6de;
-    --text-muted: #7a7870;
-    --text-dim: #4a4840;
-    --border: rgba(240,165,0,0.15);
-    --border-faint: rgba(255,255,255,0.06);
+    --bg: #08090d; --bg2: #0e1018; --bg3: #13151f;
+    --amber: #f0a500; --amber-dim: #a87200; --amber-glow: rgba(240,165,0,0.12);
+    --text: #e8e6de; --text-muted: #7a7870; --text-dim: #4a4840;
+    --border: rgba(240,165,0,0.15); --border-faint: rgba(255,255,255,0.06);
   }
-
   html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 14px; line-height: 1.7; overflow-x: hidden; }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-
-  /* ─── NAV ─── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     padding: 1.25rem 3rem;
     display: flex; align-items: center; justify-content: space-between;
     border-bottom: 1px solid var(--border-faint);
-    background: rgba(8,9,13,0.85);
-    backdrop-filter: blur(12px);
+    background: rgba(8,9,13,0.85); backdrop-filter: blur(12px);
   }
-  .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800; font-size: 1.1rem;
-    color: var(--amber);
-    letter-spacing: -0.02em;
-    text-decoration: none;
-  }
+  .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--amber); letter-spacing: -0.02em; text-decoration: none; }
+  .nav-right { display: flex; align-items: center; gap: 2.5rem; }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a {
-    color: var(--text-muted); text-decoration: none;
-    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
-    transition: color 0.2s;
-  }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
   .nav-links a:hover { color: var(--amber); }
 
-  /* ─── HERO ─── */
-  .hero {
-    min-height: 100vh;
-    display: grid; grid-template-columns: 1fr 1fr;
-    padding: 0 3rem; padding-top: 5rem;
-    position: relative; overflow: hidden;
+  /* LANGUAGE SWITCH */
+  .lang-switch {
+    display: flex; align-items: center; gap: 0;
+    border: 1px solid var(--border); overflow: hidden;
+    flex-shrink: 0;
   }
-  .hero::before {
-    content: '';
-    position: absolute; top: -200px; right: -100px;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(240,165,0,0.06) 0%, transparent 70%);
-    pointer-events: none;
+  .lang-btn {
+    padding: 5px 12px; font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.06em; background: transparent;
+    color: var(--text-dim); border: none; cursor: pointer;
+    transition: all 0.2s; text-transform: uppercase;
   }
-  .hero-left {
-    display: flex; flex-direction: column; justify-content: center;
-    padding-right: 4rem; padding-bottom: 4rem;
-  }
-  .hero-tag {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--amber); margin-bottom: 2rem;
-    opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
-  }
-  .hero-tag::before {
-    content: ''; display: block;
-    width: 32px; height: 1px; background: var(--amber);
-  }
-  h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(3rem, 6vw, 5.5rem);
-    font-weight: 800; line-height: 0.95;
-    letter-spacing: -0.04em; color: var(--text);
-    margin-bottom: 1.5rem;
-    opacity: 0; animation: fadeUp 0.7s 0.35s forwards;
-  }
+  .lang-btn.active { background: var(--amber); color: #08090d; font-weight: 600; }
+  .lang-btn:not(.active):hover { color: var(--amber); }
+  .lang-divider { width: 1px; height: 100%; background: var(--border); }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding: 0 3rem; padding-top: 5rem; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -200px; right: -100px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(240,165,0,0.06) 0%, transparent 70%); pointer-events: none; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding-right: 4rem; padding-bottom: 4rem; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.6s 0.2s forwards; }
+  .hero-tag::before { content: ''; display: block; width: 32px; height: 1px; background: var(--amber); }
+  h1 { font-family: 'Syne', sans-serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 800; line-height: 0.95; letter-spacing: -0.04em; color: var(--text); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.7s 0.35s forwards; }
   h1 span { color: var(--amber); }
-  .hero-desc {
-    color: var(--text-muted); max-width: 420px;
-    font-size: 13px; line-height: 1.8;
-    margin-bottom: 2.5rem;
-    opacity: 0; animation: fadeUp 0.7s 0.5s forwards;
-  }
-  .hero-cta {
-    display: flex; gap: 1rem; align-items: center;
-    opacity: 0; animation: fadeUp 0.7s 0.65s forwards;
-  }
-  .btn-primary {
-    padding: 0.75rem 2rem; background: var(--amber); color: #08090d;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
-    text-decoration: none; border: none; cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
+  .hero-desc { color: var(--text-muted); max-width: 420px; font-size: 13px; line-height: 1.8; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.7s 0.5s forwards; }
+  .hero-cta { display: flex; gap: 1rem; align-items: center; opacity: 0; animation: fadeUp 0.7s 0.65s forwards; }
+  .btn-primary { padding: 0.75rem 2rem; background: var(--amber); color: #08090d; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(240,165,0,0.3); }
-  .btn-ghost {
-    padding: 0.75rem 2rem; background: transparent;
-    color: var(--text-muted); border: 1px solid var(--border-faint);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;
-    text-decoration: none; cursor: pointer;
-    transition: color 0.2s, border-color 0.2s;
-  }
+  .btn-ghost { padding: 0.75rem 2rem; background: transparent; color: var(--text-muted); border: 1px solid var(--border-faint); font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: color 0.2s, border-color 0.2s; }
   .btn-ghost:hover { color: var(--text); border-color: var(--border); }
+  .hero-right { display: flex; align-items: center; justify-content: center; position: relative; opacity: 0; animation: fadeIn 1s 0.4s forwards; }
+  .code-block { background: var(--bg3); border: 1px solid var(--border-faint); padding: 2rem; width: 100%; max-width: 440px; font-size: 12px; line-height: 2; position: relative; }
+  .code-block::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--amber); }
+  .code-dots { display: flex; gap: 6px; margin-bottom: 1.5rem; }
+  .code-dots span { width: 10px; height: 10px; border-radius: 50%; }
+  .d1 { background: #ff5f57; } .d2 { background: #febc2e; } .d3 { background: #28c840; }
+  .kw { color: #c792ea; } .cl { color: #82aaff; } .str { color: #c3e88d; } .cm { color: var(--text-dim); } .fn { color: var(--amber); } .nu { color: #f78c6c; }
+  .scroll-hint { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--text-dim); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0; animation: fadeIn 1s 1.2s forwards; }
+  .scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--amber), transparent); animation: scrollPulse 2s infinite; }
 
-  .hero-right {
-    display: flex; align-items: center; justify-content: center;
-    position: relative;
-    opacity: 0; animation: fadeIn 1s 0.4s forwards;
-  }
-  .code-block {
-    background: var(--bg3); border: 1px solid var(--border-faint);
-    padding: 2rem; width: 100%; max-width: 440px;
-    font-size: 12px; line-height: 2;
-    position: relative;
-  }
-  .code-block::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0;
-    height: 2px; background: var(--amber);
-  }
-  .code-dots {
-    display: flex; gap: 6px; margin-bottom: 1.5rem;
-  }
-  .code-dots span {
-    width: 10px; height: 10px; border-radius: 50%;
-  }
-  .d1 { background: #ff5f57; }
-  .d2 { background: #febc2e; }
-  .d3 { background: #28c840; }
-  .kw { color: #c792ea; }
-  .cl { color: #82aaff; }
-  .str { color: #c3e88d; }
-  .cm { color: var(--text-dim); }
-  .fn { color: var(--amber); }
-  .nu { color: #f78c6c; }
-
-  /* ─── SCROLL INDICATOR ─── */
-  .scroll-hint {
-    position: absolute; bottom: 2.5rem; left: 50%;
-    transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
-    color: var(--text-dim); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
-    opacity: 0; animation: fadeIn 1s 1.2s forwards;
-  }
-  .scroll-line {
-    width: 1px; height: 48px; background: linear-gradient(to bottom, var(--amber), transparent);
-    animation: scrollPulse 2s infinite;
-  }
-
-  /* ─── SECTIONS ─── */
   section { padding: 7rem 3rem; }
-  .section-label {
-    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--amber); margin-bottom: 1rem;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .section-label::after {
-    content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--amber-dim);
-  }
-  .section-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    font-weight: 800; letter-spacing: -0.03em; line-height: 1.05;
-    margin-bottom: 1.5rem;
-  }
+  .section-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); margin-bottom: 1rem; display: flex; align-items: center; gap: 12px; }
+  .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--amber-dim); }
+  .section-title { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 1.5rem; }
 
-  /* ─── ABOUT ─── */
-  .about-grid {
-    display: grid; grid-template-columns: 1fr 1.4fr;
-    gap: 5rem; align-items: center;
-  }
+  .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: center; }
   .about-left { position: relative; }
-  .about-photo-wrap {
-    width: 100%; aspect-ratio: 3/4;
-    background: var(--bg3); border: 1px solid var(--border-faint);
-    position: relative; overflow: hidden;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .about-photo-wrap::after {
-    content: 'AS'; font-family: 'Syne', sans-serif;
-    font-size: 5rem; font-weight: 800; color: var(--border-faint);
-    letter-spacing: -0.05em;
-  }
-  .about-accent {
-    position: absolute; bottom: -1.5rem; right: -1.5rem;
-    width: 80px; height: 80px; background: var(--amber);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Syne', sans-serif; font-weight: 800;
-    font-size: 0.7rem; text-align: center; line-height: 1.3;
-    color: #08090d; letter-spacing: 0.04em; text-transform: uppercase;
-  }
+  .about-photo-wrap { width: 100%; aspect-ratio: 3/4; background: var(--bg3); border: 1px solid var(--border-faint); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .about-photo-wrap::after { content: 'AS'; font-family: 'Syne', sans-serif; font-size: 5rem; font-weight: 800; color: var(--border-faint); letter-spacing: -0.05em; }
+  .about-accent { position: absolute; bottom: -1.5rem; right: -1.5rem; width: 80px; height: 80px; background: var(--amber); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.7rem; text-align: center; line-height: 1.3; color: #08090d; letter-spacing: 0.04em; text-transform: uppercase; }
   .about-body { color: var(--text-muted); font-size: 13px; line-height: 1.9; }
   .about-body p + p { margin-top: 1.2rem; }
   .about-body strong { color: var(--text); font-weight: 500; }
-  .about-stats {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 1px; margin-top: 2.5rem;
-    border: 1px solid var(--border-faint);
-  }
-  .stat {
-    background: var(--bg2); padding: 1.25rem;
-    text-align: center;
-  }
-  .stat-num {
-    font-family: 'Syne', sans-serif; font-size: 2rem;
-    font-weight: 800; color: var(--amber); line-height: 1;
-  }
+  .about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 2.5rem; border: 1px solid var(--border-faint); }
+  .stat { background: var(--bg2); padding: 1.25rem; text-align: center; }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--amber); line-height: 1; }
   .stat-lbl { font-size: 11px; color: var(--text-dim); margin-top: 4px; letter-spacing: 0.06em; }
 
-  /* ─── SKILLS ─── */
   .skills-bg { background: var(--bg2); }
-  .skills-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1px; margin-top: 3rem;
-    border: 1px solid var(--border-faint);
-  }
-  .skill-card {
-    background: var(--bg); padding: 2rem;
-    transition: background 0.25s;
-  }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; margin-top: 3rem; border: 1px solid var(--border-faint); }
+  .skill-card { background: var(--bg); padding: 2rem; transition: background 0.25s; }
   .skill-card:hover { background: var(--bg3); }
-  .skill-icon {
-    width: 44px; height: 44px; background: var(--amber-glow);
-    border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.2rem; margin-bottom: 1.2rem;
-  }
-  .skill-name {
-    font-family: 'Syne', sans-serif; font-weight: 700;
-    font-size: 1rem; margin-bottom: 0.5rem; color: var(--text);
-  }
+  .skill-icon { width: 44px; height: 44px; background: var(--amber-glow); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 1.2rem; }
+  .skill-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; color: var(--text); }
   .skill-desc { font-size: 12px; color: var(--text-muted); line-height: 1.8; }
   .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
-  .tag {
-    font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
-    padding: 3px 10px; border: 1px solid var(--border-faint); color: var(--text-dim);
-  }
+  .tag { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 10px; border: 1px solid var(--border-faint); color: var(--text-dim); }
   .tag-amber { border-color: var(--border); color: var(--amber-dim); }
 
-  /* ─── PROJECTS ─── */
   .projects-list { display: grid; gap: 1px; margin-top: 3rem; }
-  .project-row {
-    background: var(--bg2); border: 1px solid var(--border-faint);
-    display: grid; grid-template-columns: auto 1fr auto;
-    align-items: center; gap: 2rem; padding: 2rem 2.5rem;
-    transition: background 0.2s, border-color 0.2s;
-    cursor: default;
-  }
-  .project-row:hover {
-    background: var(--bg3); border-color: var(--border);
-  }
-  .project-num {
-    font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800;
-    color: var(--text-dim); line-height: 1; min-width: 3ch; text-align: right;
-  }
+  .project-row { background: var(--bg2); border: 1px solid var(--border-faint); display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 2rem; padding: 2rem 2.5rem; transition: background 0.2s, border-color 0.2s; cursor: default; }
+  .project-row:hover { background: var(--bg3); border-color: var(--border); }
+  .project-num { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--text-dim); line-height: 1; min-width: 3ch; text-align: right; }
   .project-row:hover .project-num { color: var(--amber); }
-  .project-info h3 {
-    font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700;
-    color: var(--text); margin-bottom: 0.4rem;
-  }
+  .project-info h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
   .project-info p { font-size: 12px; color: var(--text-muted); line-height: 1.7; max-width: 540px; }
-  .project-meta {
-    text-align: right; display: flex; flex-direction: column; gap: 8px; align-items: flex-end;
-  }
+  .project-meta { text-align: right; display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
   .project-tech { font-size: 11px; color: var(--text-dim); letter-spacing: 0.06em; }
-  .project-badge {
-    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 3px 10px; background: var(--amber-glow);
-    border: 1px solid var(--border); color: var(--amber);
-  }
+  .project-badge { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; background: var(--amber-glow); border: 1px solid var(--border); color: var(--amber); }
 
-  /* ─── EXPERIENCE ─── */
   .exp-timeline { margin-top: 3rem; position: relative; }
-  .exp-timeline::before {
-    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-    width: 1px; background: var(--border-faint);
-  }
-  .exp-item {
-    padding: 2.5rem 0 2.5rem 3rem; position: relative;
-    border-bottom: 1px solid var(--border-faint);
-  }
+  .exp-timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--border-faint); }
+  .exp-item { padding: 2.5rem 0 2.5rem 3rem; position: relative; border-bottom: 1px solid var(--border-faint); }
   .exp-item:last-child { border-bottom: none; }
-  .exp-item::before {
-    content: ''; position: absolute; left: -4px; top: 2.8rem;
-    width: 9px; height: 9px; border: 1px solid var(--amber);
-    background: var(--bg); transform: rotate(45deg);
-  }
+  .exp-item::before { content: ''; position: absolute; left: -4px; top: 2.8rem; width: 9px; height: 9px; border: 1px solid var(--amber); background: var(--bg); transform: rotate(45deg); }
   .exp-date { font-size: 11px; color: var(--amber); letter-spacing: 0.1em; margin-bottom: 0.6rem; }
-  .exp-company {
-    font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--text);
-  }
+  .exp-company { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--text); }
   .exp-role { font-size: 12px; color: var(--text-muted); margin-bottom: 1rem; }
   .exp-desc { font-size: 12px; color: var(--text-muted); line-height: 1.9; max-width: 640px; }
 
-  /* ─── CONTACT ─── */
   .contact-bg { background: var(--bg2); }
-  .contact-inner {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 5rem; align-items: start;
-  }
+  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
   .contact-desc { color: var(--text-muted); font-size: 13px; line-height: 1.9; margin-top: 1.5rem; }
   .contact-links { display: flex; flex-direction: column; gap: 1px; margin-top: 2rem; }
-  .contact-link {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.2rem 1.5rem; background: var(--bg);
-    border: 1px solid var(--border-faint);
-    color: var(--text-muted); text-decoration: none; font-size: 12px;
-    letter-spacing: 0.04em; transition: all 0.2s;
-  }
+  .contact-link { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 1.5rem; background: var(--bg); border: 1px solid var(--border-faint); color: var(--text-muted); text-decoration: none; font-size: 12px; letter-spacing: 0.04em; transition: all 0.2s; }
   .contact-link:hover { background: var(--bg3); color: var(--text); border-color: var(--border); }
   .contact-link .arrow { color: var(--amber); transition: transform 0.2s; }
   .contact-link:hover .arrow { transform: translateX(4px); }
   .contact-form { display: flex; flex-direction: column; gap: 1rem; }
   .form-group { display: flex; flex-direction: column; gap: 6px; }
   .form-label { font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; }
-  .form-input, .form-textarea {
-    background: var(--bg); border: 1px solid var(--border-faint);
-    color: var(--text); font-family: 'JetBrains Mono', monospace;
-    font-size: 13px; padding: 0.85rem 1rem;
-    outline: none; transition: border-color 0.2s;
-  }
+  .form-input, .form-textarea { background: var(--bg); border: 1px solid var(--border-faint); color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 13px; padding: 0.85rem 1rem; outline: none; transition: border-color 0.2s; }
   .form-input:focus, .form-textarea:focus { border-color: var(--amber); }
   .form-textarea { resize: vertical; min-height: 120px; }
 
-  /* ─── FOOTER ─── */
-  footer {
-    padding: 2rem 3rem;
-    border-top: 1px solid var(--border-faint);
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 11px; color: var(--text-dim); letter-spacing: 0.06em;
-  }
+  footer { padding: 2rem 3rem; border-top: 1px solid var(--border-faint); display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: var(--text-dim); letter-spacing: 0.06em; }
 
-  /* ─── ANIMATIONS ─── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; } to { opacity: 1; }
-  }
-  @keyframes scrollPulse {
-    0%, 100% { opacity: 0.3; transform: scaleY(1); }
-    50% { opacity: 1; transform: scaleY(1.2); }
-  }
-
-  .reveal {
-    opacity: 0; transform: translateY(32px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes scrollPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+  .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* lang transition */
+  [data-i18n] { transition: opacity 0.15s ease; }
+  .lang-fade { opacity: 0; }
 
   @media (max-width: 900px) {
     nav { padding: 1.25rem 1.5rem; }
@@ -374,11 +152,11 @@
     .hero-right { display: none; }
     section { padding: 5rem 1.5rem; }
     .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
-    .about-photo-wrap { max-height: 320px; }
     .project-row { grid-template-columns: 1fr; gap: 1rem; }
     .project-num { font-size: 1.5rem; }
     footer { flex-direction: column; gap: 1rem; text-align: center; }
     .nav-links { display: none; }
+    .nav-right { gap: 1rem; }
   }
 </style>
 </head>
@@ -386,328 +164,377 @@
 
 <nav>
   <a href="#" class="nav-logo">AS.</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#about" data-i18n="nav.about">Chi sono</a></li>
+      <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+      <li><a href="#projects" data-i18n="nav.projects">Progetti</a></li>
+      <li><a href="#experience" data-i18n="nav.experience">Esperienza</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Contatti</a></li>
+    </ul>
+    <div class="lang-switch">
+      <button class="lang-btn active" onclick="setLang('it')" id="btn-it">IT</button>
+      <div class="lang-divider"></div>
+      <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+      <div class="lang-divider"></div>
+      <button class="lang-btn" onclick="setLang('zh')" id="btn-zh">中文</button>
+    </div>
+  </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="hero">
   <div class="hero-left">
-    <div class="hero-tag">Available for opportunities</div>
-    <h1>Software<br><span>Developer</span></h1>
-    <p class="hero-desc">
-      Java developer specializing in enterprise applications and full-stack solutions.
-      Passionate about clean architecture, DevOps automation, and building things that last.
-    </p>
+    <div class="hero-tag" data-i18n="hero.tag">Disponibile per opportunità</div>
+    <h1>Software<br><span data-i18n="hero.h1">Developer</span></h1>
+    <p class="hero-desc" data-i18n="hero.desc">Sviluppatore Java specializzato in applicazioni enterprise e soluzioni full-stack. Appassionato di architetture pulite, automazione DevOps e software che dura nel tempo.</p>
     <div class="hero-cta">
-      <a href="#projects" class="btn-primary">View work</a>
-      <a href="#contact" class="btn-ghost">Get in touch</a>
+      <a href="#projects" class="btn-primary" data-i18n="hero.cta1">Vedi i progetti</a>
+      <a href="#contact" class="btn-ghost" data-i18n="hero.cta2">Contattami</a>
     </div>
   </div>
   <div class="hero-right">
     <div class="code-block">
-      <div class="code-dots">
-        <span class="d1"></span><span class="d2"></span><span class="d3"></span>
-      </div>
-      <div>
-        <span class="cm">// Alessandro Stapane</span><br>
-        <span class="kw">public class</span> <span class="cl">Developer</span> {<br>
-        &nbsp;&nbsp;<span class="kw">private final</span> <span class="cl">String</span> name = <span class="str">"Alessandro"</span>;<br>
-        &nbsp;&nbsp;<span class="kw">private final</span> <span class="cl">String</span> role = <span class="str">"Java Dev"</span>;<br>
-        &nbsp;&nbsp;<span class="kw">private final int</span> age = <span class="nu">24</span>;<br>
-        &nbsp;&nbsp;<span class="kw">private final</span> <span class="cl">String</span>[] stack = {<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"Java EE"</span>, <span class="str">"Spring Boot"</span>,<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"Docker"</span>, <span class="str">"Maven"</span>, <span class="str">"DB2"</span><br>
-        &nbsp;&nbsp;};<br><br>
-        &nbsp;&nbsp;<span class="kw">public boolean</span> <span class="fn">isPassionate</span>() {<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return true</span>; <span class="cm">// always</span><br>
-        &nbsp;&nbsp;}<br>
-        }
-      </div>
+      <div class="code-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+      <span class="cm">// Alessandro Stapane</span><br>
+      <span class="kw">public class</span> <span class="cl">Developer</span> {<br>
+      &nbsp;&nbsp;<span class="kw">private final</span> <span class="cl">String</span> name = <span class="str">"Alessandro"</span>;<br>
+      &nbsp;&nbsp;<span class="kw">private final</span> <span class="cl">String</span> role = <span class="str">"Java Dev"</span>;<br>
+      &nbsp;&nbsp;<span class="kw">private final int</span> age = <span class="nu">24</span>;<br>
+      &nbsp;&nbsp;<span class="kw">private final</span> <span class="cl">String</span>[] stack = {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"Java EE"</span>, <span class="str">"Spring Boot"</span>,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"Docker"</span>, <span class="str">"Maven"</span>, <span class="str">"DB2"</span><br>
+      &nbsp;&nbsp;};<br><br>
+      &nbsp;&nbsp;<span class="kw">public boolean</span> <span class="fn">isPassionate</span>() {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return true</span>; <span class="cm">// sempre</span><br>
+      &nbsp;&nbsp;}<br>
+      }
     </div>
   </div>
   <div class="scroll-hint">
-    <span>Scroll</span>
+    <span data-i18n="hero.scroll">Scorri</span>
     <div class="scroll-line"></div>
   </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="about-grid reveal">
     <div class="about-left">
       <div class="about-photo-wrap"></div>
-      <div class="about-accent">Empoli<br>Tuscany<br>🇮🇹</div>
+      <div class="about-accent">Empoli<br>Toscana<br>🇮🇹</div>
     </div>
     <div>
-      <div class="section-label">About me</div>
-      <h2 class="section-title">Building systems<br>that scale.</h2>
+      <div class="section-label" data-i18n="about.label">Chi sono</div>
+      <h2 class="section-title" data-i18n="about.title">Costruisco sistemi<br>che scalano.</h2>
       <div class="about-body">
-        <p>I'm a Java developer based in <strong>Empoli, Tuscany</strong>, working on enterprise Java EE applications for the financial sector. I thrive at the intersection of clean backend architecture and practical DevOps automation.</p>
-        <p>When I'm not writing production code, I build personal tools — from <strong>portfolio trackers</strong> with real-time market data to <strong>CI/CD automation</strong> GUIs. I'm driven by the idea that good software should feel inevitable: simple, fast, and hard to break.</p>
-        <p>I'm currently growing through a major company transition, expanding my microservices and cloud-native expertise with <strong>Spring Boot, Docker, and Kubernetes</strong>.</p>
+        <p data-i18n="about.p1">Sono un sviluppatore Java di <strong>Empoli, Toscana</strong>, specializzato in applicazioni Java EE enterprise per il settore finanziario. Trovo la mia dimensione all'incrocio tra architettura backend e automazione DevOps.</p>
+        <p data-i18n="about.p2">Nel tempo libero costruisco strumenti personali — dal <strong>tracker di portafoglio</strong> con dati di mercato in tempo reale a <strong>GUI per automazione CI/CD</strong>. Sono mosso dall'idea che il software debba essere inevitabile: semplice, veloce e difficile da rompere.</p>
+        <p data-i18n="about.p3">Sto crescendo in una fase di transizione aziendale, espandendo le mie competenze su microservizi e cloud-native con <strong>Spring Boot, Docker e Kubernetes</strong>.</p>
       </div>
       <div class="about-stats">
-        <div class="stat">
-          <div class="stat-num">2+</div>
-          <div class="stat-lbl">Years exp.</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">10+</div>
-          <div class="stat-lbl">Projects</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">∞</div>
-          <div class="stat-lbl">Curiosity</div>
-        </div>
+        <div class="stat"><div class="stat-num">2+</div><div class="stat-lbl" data-i18n="about.stat1">Anni esp.</div></div>
+        <div class="stat"><div class="stat-num">10+</div><div class="stat-lbl" data-i18n="about.stat2">Progetti</div></div>
+        <div class="stat"><div class="stat-num">∞</div><div class="stat-lbl" data-i18n="about.stat3">Curiosità</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SKILLS -->
 <section class="skills-bg" id="skills">
   <div class="reveal">
-    <div class="section-label">What I work with</div>
-    <h2 class="section-title">Tech stack &amp;<br>expertise.</h2>
+    <div class="section-label" data-i18n="skills.label">Con cosa lavoro</div>
+    <h2 class="section-title" data-i18n="skills.title">Tech stack &amp;<br>competenze.</h2>
   </div>
   <div class="skills-grid reveal">
     <div class="skill-card">
       <div class="skill-icon">☕</div>
-      <div class="skill-name">Java Ecosystem</div>
-      <div class="skill-desc">Enterprise-grade development with a focus on reliability, performance and maintainability.</div>
-      <div class="skill-tags">
-        <span class="tag tag-amber">Java EE</span>
-        <span class="tag tag-amber">Spring Boot</span>
-        <span class="tag">Servlet / JSP</span>
-        <span class="tag">Maven</span>
-        <span class="tag">Hibernate</span>
-      </div>
+      <div class="skill-name" data-i18n="skills.s1.name">Ecosistema Java</div>
+      <div class="skill-desc" data-i18n="skills.s1.desc">Sviluppo enterprise con focus su affidabilità, performance e manutenibilità.</div>
+      <div class="skill-tags"><span class="tag tag-amber">Java EE</span><span class="tag tag-amber">Spring Boot</span><span class="tag">Servlet / JSP</span><span class="tag">Maven</span><span class="tag">Hibernate</span></div>
     </div>
     <div class="skill-card">
       <div class="skill-icon">🐳</div>
-      <div class="skill-name">DevOps &amp; CI/CD</div>
-      <div class="skill-desc">Automating the full delivery pipeline — from build to production — with modern containerization.</div>
-      <div class="skill-tags">
-        <span class="tag tag-amber">Docker</span>
-        <span class="tag tag-amber">Kubernetes</span>
-        <span class="tag">Jenkins</span>
-        <span class="tag">GitLab CI</span>
-        <span class="tag">Nginx</span>
-      </div>
+      <div class="skill-name" data-i18n="skills.s2.name">DevOps &amp; CI/CD</div>
+      <div class="skill-desc" data-i18n="skills.s2.desc">Automazione della pipeline di delivery dalla build alla produzione con containerizzazione moderna.</div>
+      <div class="skill-tags"><span class="tag tag-amber">Docker</span><span class="tag tag-amber">Kubernetes</span><span class="tag">Jenkins</span><span class="tag">GitLab CI</span><span class="tag">Nginx</span></div>
     </div>
     <div class="skill-card">
       <div class="skill-icon">🗄️</div>
-      <div class="skill-name">Backend &amp; Data</div>
-      <div class="skill-desc">Designing and querying relational databases with attention to integrity and performance.</div>
-      <div class="skill-tags">
-        <span class="tag tag-amber">DB2</span>
-        <span class="tag tag-amber">SQL</span>
-        <span class="tag">REST APIs</span>
-        <span class="tag">Tomcat</span>
-        <span class="tag">Gson / JSON</span>
-      </div>
+      <div class="skill-name" data-i18n="skills.s3.name">Backend &amp; Dati</div>
+      <div class="skill-desc" data-i18n="skills.s3.desc">Progettazione e interrogazione di database relazionali con attenzione a integrità e performance.</div>
+      <div class="skill-tags"><span class="tag tag-amber">DB2</span><span class="tag tag-amber">SQL</span><span class="tag">REST APIs</span><span class="tag">Tomcat</span><span class="tag">Gson / JSON</span></div>
     </div>
     <div class="skill-card">
       <div class="skill-icon">🛠️</div>
-      <div class="skill-name">Tools &amp; Workflow</div>
-      <div class="skill-desc">Productive in a professional environment with modern tooling and version control workflows.</div>
-      <div class="skill-tags">
-        <span class="tag tag-amber">IntelliJ IDEA</span>
-        <span class="tag">Git / GitLab</span>
-        <span class="tag">YouTrack</span>
-        <span class="tag">Linux</span>
-        <span class="tag">Python</span>
-      </div>
+      <div class="skill-name" data-i18n="skills.s4.name">Strumenti &amp; Workflow</div>
+      <div class="skill-desc" data-i18n="skills.s4.desc">Produttivo in un ambiente professionale con tooling moderno e workflow di version control.</div>
+      <div class="skill-tags"><span class="tag tag-amber">IntelliJ IDEA</span><span class="tag">Git / GitLab</span><span class="tag">YouTrack</span><span class="tag">Linux</span><span class="tag">Python</span></div>
     </div>
     <div class="skill-card">
       <div class="skill-icon">🏠</div>
-      <div class="skill-name">Self-Hosting</div>
-      <div class="skill-desc">Running personal infrastructure: home server, automation, reverse proxies and cloud services.</div>
-      <div class="skill-tags">
-        <span class="tag tag-amber">Home Assistant</span>
-        <span class="tag">Nextcloud</span>
-        <span class="tag">DuckDNS</span>
-        <span class="tag">Nginx Proxy Mgr</span>
-      </div>
+      <div class="skill-name" data-i18n="skills.s5.name">Self-Hosting</div>
+      <div class="skill-desc" data-i18n="skills.s5.desc">Gestione di infrastruttura personale: home server, automazione, reverse proxy e servizi cloud.</div>
+      <div class="skill-tags"><span class="tag tag-amber">Home Assistant</span><span class="tag">Nextcloud</span><span class="tag">DuckDNS</span><span class="tag">Nginx Proxy Mgr</span></div>
     </div>
     <div class="skill-card">
       <div class="skill-icon">📐</div>
-      <div class="skill-name">Architecture</div>
-      <div class="skill-desc">Understanding of distributed systems, microservices patterns and API gateway design.</div>
-      <div class="skill-tags">
-        <span class="tag tag-amber">Microservices</span>
-        <span class="tag">API Gateway</span>
-        <span class="tag">MVC</span>
-        <span class="tag">Batch Systems</span>
-      </div>
+      <div class="skill-name" data-i18n="skills.s6.name">Architettura</div>
+      <div class="skill-desc" data-i18n="skills.s6.desc">Comprensione di sistemi distribuiti, pattern a microservizi e design di API gateway.</div>
+      <div class="skill-tags"><span class="tag tag-amber">Microservizi</span><span class="tag">API Gateway</span><span class="tag">MVC</span><span class="tag">Batch Systems</span></div>
     </div>
   </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects">
   <div class="reveal">
-    <div class="section-label">What I've built</div>
-    <h2 class="section-title">Selected<br>projects.</h2>
+    <div class="section-label" data-i18n="projects.label">Cosa ho costruito</div>
+    <h2 class="section-title" data-i18n="projects.title">Progetti<br>selezionati.</h2>
   </div>
   <div class="projects-list reveal">
     <div class="project-row">
       <div class="project-num">01</div>
       <div class="project-info">
         <h3>PAC Portfolio Tracker</h3>
-        <p>Java Swing desktop application tracking six Trade Republic investment positions with live market data from Yahoo Finance and CoinGecko. Features a PAC simulator for long-term projections with compound growth modeling.</p>
+        <p data-i18n="projects.p1.desc">Applicazione desktop Java Swing che monitora sei posizioni di investimento su Trade Republic con dati di mercato live da Yahoo Finance e CoinGecko. Include un simulatore PAC per proiezioni a lungo termine.</p>
       </div>
-      <div class="project-meta">
-        <span class="project-tech">Java · Swing · Yahoo Finance API</span>
-        <span class="project-badge">Personal</span>
-      </div>
+      <div class="project-meta"><span class="project-tech">Java · Swing · Yahoo Finance API</span><span class="project-badge" data-i18n="badge.personal">Personale</span></div>
     </div>
     <div class="project-row">
       <div class="project-num">02</div>
       <div class="project-info">
         <h3>Jenkins Builder GUI</h3>
-        <p>DevOps automation tool for parallel Jenkins job execution with dynamic GitLab branch loading and automated YouTrack issue creation. Available in Python/Tkinter and C#/.NET 8 WinForms editions.</p>
+        <p data-i18n="projects.p2.desc">Tool di automazione DevOps per esecuzione parallela di job Jenkins con caricamento dinamico branch GitLab e creazione automatica di issue su YouTrack. Disponibile in Python/Tkinter e C#/.NET 8 WinForms.</p>
       </div>
-      <div class="project-meta">
-        <span class="project-tech">C# · .NET 8 · Python · Jenkins API</span>
-        <span class="project-badge">DevOps</span>
-      </div>
+      <div class="project-meta"><span class="project-tech">C# · .NET 8 · Python · Jenkins API</span><span class="project-badge">DevOps</span></div>
     </div>
     <div class="project-row">
       <div class="project-num">03</div>
       <div class="project-info">
         <h3>Streamlit Portfolio Dashboard</h3>
-        <p>Web-based investment tracker using yfinance with accurate multi-currency pricing (EUR/USD conversion), asset allocation charts, and historical performance visualization across equity, gold and crypto positions.</p>
+        <p data-i18n="projects.p3.desc">Tracker investimenti web con yfinance, conversione EUR/USD accurata, grafici di asset allocation e visualizzazione performance storica su equity, oro e crypto.</p>
       </div>
-      <div class="project-meta">
-        <span class="project-tech">Python · Streamlit · yfinance</span>
-        <span class="project-badge">Finance</span>
-      </div>
+      <div class="project-meta"><span class="project-tech">Python · Streamlit · yfinance</span><span class="project-badge" data-i18n="badge.finance">Finanza</span></div>
     </div>
     <div class="project-row">
       <div class="project-num">04</div>
       <div class="project-info">
         <h3>CBL-FINANZADOSSIER Batch System</h3>
-        <p>Enterprise batch archival system implementing storicizzaLog() for automated log historicization. Includes Gson serialization fixes with @SerializedName annotations for robust case-insensitive JSON parsing.</p>
+        <p data-i18n="projects.p4.desc">Sistema batch enterprise con storicizzaLog() per archiviazione automatizzata dei log. Include correzioni di serializzazione Gson con @SerializedName per parsing JSON case-insensitive.</p>
       </div>
-      <div class="project-meta">
-        <span class="project-tech">Java EE · DB2 · Gson · Maven</span>
-        <span class="project-badge">Enterprise</span>
-      </div>
+      <div class="project-meta"><span class="project-tech">Java EE · DB2 · Gson · Maven</span><span class="project-badge" data-i18n="badge.enterprise">Enterprise</span></div>
     </div>
   </div>
 </section>
 
-<!-- EXPERIENCE -->
 <section id="experience" style="background: var(--bg2);">
   <div class="reveal">
-    <div class="section-label">Where I've worked</div>
-    <h2 class="section-title">Experience.</h2>
+    <div class="section-label" data-i18n="exp.label">Dove ho lavorato</div>
+    <h2 class="section-title" data-i18n="exp.title">Esperienza.</h2>
   </div>
   <div class="exp-timeline reveal">
     <div class="exp-item">
-      <div class="exp-date">2024 — Present</div>
+      <div class="exp-date" data-i18n="exp.e1.date">2024 — Presente</div>
       <div class="exp-company">Cabel Industry</div>
-      <div class="exp-role">Java Developer · Empoli, Tuscany</div>
-      <p class="exp-desc">
-        Development and maintenance of enterprise Java EE financial applications for the banking sector.
-        Working on batch processing systems, REST API integrations, and internal tooling using Servlet/JSP,
-        Maven, Tomcat and DB2. Currently supporting an architectural transition toward microservices and cloud-native infrastructure.
-      </p>
-      <div class="skill-tags" style="margin-top: 1rem;">
-        <span class="tag">Java EE</span>
-        <span class="tag">DB2</span>
-        <span class="tag">Tomcat</span>
-        <span class="tag">Maven</span>
-        <span class="tag">Batch Systems</span>
-        <span class="tag">IntelliJ IDEA</span>
-      </div>
+      <div class="exp-role" data-i18n="exp.e1.role">Java Developer · Empoli, Toscana</div>
+      <p class="exp-desc" data-i18n="exp.e1.desc">Sviluppo e manutenzione di applicazioni Java EE enterprise per il settore bancario. Lavoro su sistemi batch, integrazioni REST API e tooling interno con Servlet/JSP, Maven, Tomcat e DB2. Attualmente supporto una transizione architetturale verso microservizi e infrastruttura cloud-native.</p>
+      <div class="skill-tags" style="margin-top: 1rem;"><span class="tag">Java EE</span><span class="tag">DB2</span><span class="tag">Tomcat</span><span class="tag">Maven</span><span class="tag">Batch Systems</span><span class="tag">IntelliJ IDEA</span></div>
     </div>
     <div class="exp-item">
       <div class="exp-date">2022 — 2024</div>
-      <div class="exp-company">Junior Developer</div>
-      <div class="exp-role">Software Development · Previous Role</div>
-      <p class="exp-desc">
-        Entry-level software development experience building foundational skills in object-oriented programming,
-        database management, and application development. Developed proficiency in Java, SQL,
-        and collaborative version control workflows.
-      </p>
-      <div class="skill-tags" style="margin-top: 1rem;">
-        <span class="tag">Java</span>
-        <span class="tag">SQL</span>
-        <span class="tag">Git</span>
-        <span class="tag">OOP</span>
-      </div>
+      <div class="exp-company" data-i18n="exp.e2.company">Junior Developer</div>
+      <div class="exp-role" data-i18n="exp.e2.role">Sviluppo Software · Ruolo Precedente</div>
+      <p class="exp-desc" data-i18n="exp.e2.desc">Esperienza di sviluppo software entry-level con competenze fondamentali in programmazione orientata agli oggetti, gestione database e sviluppo applicazioni. Padronanza di Java, SQL e workflow di version control collaborativi.</p>
+      <div class="skill-tags" style="margin-top: 1rem;"><span class="tag">Java</span><span class="tag">SQL</span><span class="tag">Git</span><span class="tag">OOP</span></div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
 <section class="contact-bg" id="contact">
   <div class="contact-inner reveal">
     <div>
-      <div class="section-label">Let's talk</div>
-      <h2 class="section-title">Get in<br>touch.</h2>
-      <p class="contact-desc">
-        Open to interesting projects, challenging problems and conversations about
-        software architecture, DevOps, or long-term thinking.
-      </p>
+      <div class="section-label" data-i18n="contact.label">Parliamo</div>
+      <h2 class="section-title" data-i18n="contact.title">Scrivimi.</h2>
+      <p class="contact-desc" data-i18n="contact.desc">Aperto a progetti interessanti, sfide complesse e conversazioni su architettura software, DevOps o pensiero a lungo termine.</p>
       <div class="contact-links">
-        <a href="mailto:your@email.com" class="contact-link">
-          <span>📧 &nbsp; your@email.com</span>
-          <span class="arrow">→</span>
-        </a>
-        <a href="https://github.com/Alw12" target="_blank" class="contact-link">
-          <span>🐙 &nbsp; github.com/Alw12</span>
-          <span class="arrow">→</span>
-        </a>
-        <a href="https://linkedin.com" target="_blank" class="contact-link">
-          <span>💼 &nbsp; LinkedIn</span>
-          <span class="arrow">→</span>
-        </a>
+        <a href="mailto:your@email.com" class="contact-link"><span>📧 &nbsp; your@email.com</span><span class="arrow">→</span></a>
+        <a href="https://github.com/Alw12" target="_blank" class="contact-link"><span>🐙 &nbsp; github.com/Alw12</span><span class="arrow">→</span></a>
+        <a href="https://linkedin.com" target="_blank" class="contact-link"><span>💼 &nbsp; LinkedIn</span><span class="arrow">→</span></a>
       </div>
     </div>
     <div class="contact-form">
-      <div class="form-group">
-        <label class="form-label">Name</label>
-        <input type="text" class="form-input" placeholder="Your name">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Email</label>
-        <input type="email" class="form-input" placeholder="your@email.com">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Message</label>
-        <textarea class="form-textarea" placeholder="What's on your mind?"></textarea>
-      </div>
-      <button class="btn-primary" style="align-self: flex-start;" onclick="handleSend()">Send message</button>
+      <div class="form-group"><label class="form-label" data-i18n="contact.fname">Nome</label><input type="text" class="form-input" data-i18n-placeholder="contact.fname.ph"></div>
+      <div class="form-group"><label class="form-label" data-i18n="contact.femail">Email</label><input type="email" class="form-input" placeholder="your@email.com"></div>
+      <div class="form-group"><label class="form-label" data-i18n="contact.fmsg">Messaggio</label><textarea class="form-textarea" data-i18n-placeholder="contact.fmsg.ph"></textarea></div>
+      <button class="btn-primary" id="send-btn" style="align-self: flex-start;" onclick="handleSend()" data-i18n="contact.send">Invia messaggio</button>
     </div>
   </div>
 </section>
 
 <footer>
   <span>© 2025 Alessandro Stapane</span>
-  <span>Built with ☕ and Java spirit</span>
+  <span data-i18n="footer.built">Fatto con ☕ e spirito Java</span>
 </footer>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  function handleSend() {
-    const btn = document.querySelector('.contact-form .btn-primary');
-    btn.textContent = '✓ Sent!';
-    btn.style.background = '#28c840';
-    setTimeout(() => { btn.textContent = 'Send message'; btn.style.background = ''; }, 3000);
+const translations = {
+  it: {
+    "nav.about": "Chi sono", "nav.skills": "Skills", "nav.projects": "Progetti",
+    "nav.experience": "Esperienza", "nav.contact": "Contatti",
+    "hero.tag": "Disponibile per opportunità",
+    "hero.h1": "Developer",
+    "hero.desc": "Sviluppatore Java specializzato in applicazioni enterprise e soluzioni full-stack. Appassionato di architetture pulite, automazione DevOps e software che dura nel tempo.",
+    "hero.cta1": "Vedi i progetti", "hero.cta2": "Contattami", "hero.scroll": "Scorri",
+    "about.label": "Chi sono",
+    "about.title": "Costruisco sistemi<br>che scalano.",
+    "about.p1": "Sono un sviluppatore Java di <strong>Empoli, Toscana</strong>, specializzato in applicazioni Java EE enterprise per il settore finanziario. Trovo la mia dimensione all'incrocio tra architettura backend e automazione DevOps.",
+    "about.p2": "Nel tempo libero costruisco strumenti personali — dal <strong>tracker di portafoglio</strong> con dati di mercato in tempo reale a <strong>GUI per automazione CI/CD</strong>. Sono mosso dall'idea che il software debba essere inevitabile: semplice, veloce e difficile da rompere.",
+    "about.p3": "Sto crescendo in una fase di transizione aziendale, espandendo le mie competenze su microservizi e cloud-native con <strong>Spring Boot, Docker e Kubernetes</strong>.",
+    "about.stat1": "Anni esp.", "about.stat2": "Progetti", "about.stat3": "Curiosità",
+    "skills.label": "Con cosa lavoro", "skills.title": "Tech stack &amp;<br>competenze.",
+    "skills.s1.name": "Ecosistema Java", "skills.s1.desc": "Sviluppo enterprise con focus su affidabilità, performance e manutenibilità.",
+    "skills.s2.name": "DevOps &amp; CI/CD", "skills.s2.desc": "Automazione della pipeline di delivery dalla build alla produzione con containerizzazione moderna.",
+    "skills.s3.name": "Backend &amp; Dati", "skills.s3.desc": "Progettazione e interrogazione di database relazionali con attenzione a integrità e performance.",
+    "skills.s4.name": "Strumenti &amp; Workflow", "skills.s4.desc": "Produttivo in un ambiente professionale con tooling moderno e workflow di version control.",
+    "skills.s5.name": "Self-Hosting", "skills.s5.desc": "Gestione di infrastruttura personale: home server, automazione, reverse proxy e servizi cloud.",
+    "skills.s6.name": "Architettura", "skills.s6.desc": "Comprensione di sistemi distribuiti, pattern a microservizi e design di API gateway.",
+    "projects.label": "Cosa ho costruito", "projects.title": "Progetti<br>selezionati.",
+    "projects.p1.desc": "Applicazione desktop Java Swing che monitora sei posizioni di investimento su Trade Republic con dati di mercato live da Yahoo Finance e CoinGecko. Include un simulatore PAC per proiezioni a lungo termine.",
+    "projects.p2.desc": "Tool di automazione DevOps per esecuzione parallela di job Jenkins con caricamento dinamico branch GitLab e creazione automatica di issue su YouTrack. Disponibile in Python/Tkinter e C#/.NET 8 WinForms.",
+    "projects.p3.desc": "Tracker investimenti web con yfinance, conversione EUR/USD accurata, grafici di asset allocation e visualizzazione performance storica su equity, oro e crypto.",
+    "projects.p4.desc": "Sistema batch enterprise con storicizzaLog() per archiviazione automatizzata dei log. Include correzioni di serializzazione Gson con @SerializedName per parsing JSON case-insensitive.",
+    "badge.personal": "Personale", "badge.finance": "Finanza", "badge.enterprise": "Enterprise",
+    "exp.label": "Dove ho lavorato", "exp.title": "Esperienza.",
+    "exp.e1.date": "2024 — Presente", "exp.e1.role": "Java Developer · Empoli, Toscana",
+    "exp.e1.desc": "Sviluppo e manutenzione di applicazioni Java EE enterprise per il settore bancario. Lavoro su sistemi batch, integrazioni REST API e tooling interno con Servlet/JSP, Maven, Tomcat e DB2. Attualmente supporto una transizione architetturale verso microservizi e infrastruttura cloud-native.",
+    "exp.e2.company": "Junior Developer", "exp.e2.role": "Sviluppo Software · Ruolo Precedente",
+    "exp.e2.desc": "Esperienza di sviluppo software entry-level con competenze fondamentali in programmazione orientata agli oggetti, gestione database e sviluppo applicazioni.",
+    "contact.label": "Parliamo", "contact.title": "Scrivimi.",
+    "contact.desc": "Aperto a progetti interessanti, sfide complesse e conversazioni su architettura software, DevOps o pensiero a lungo termine.",
+    "contact.fname": "Nome", "contact.fname.ph": "Il tuo nome",
+    "contact.femail": "Email", "contact.fmsg": "Messaggio", "contact.fmsg.ph": "Di cosa vuoi parlarmi?",
+    "contact.send": "Invia messaggio", "contact.sent": "✓ Inviato!",
+    "footer.built": "Fatto con ☕ e spirito Java"
+  },
+  zh: {
+    "nav.about": "关于我", "nav.skills": "技能", "nav.projects": "项目",
+    "nav.experience": "经历", "nav.contact": "联系",
+    "hero.tag": "欢迎合作机会",
+    "hero.h1": "开发工程师",
+    "hero.desc": "专注企业级应用和全栈解决方案的Java开发者。热爱简洁架构、DevOps自动化和经久耐用的软件。",
+    "hero.cta1": "查看项目", "hero.cta2": "联系我", "hero.scroll": "向下滚动",
+    "about.label": "关于我",
+    "about.title": "构建可扩展<br>的系统。",
+    "about.p1": "我是一名来自<strong>意大利托斯卡纳恩波利</strong>的Java开发者，专注于金融行业的企业级Java EE应用开发。我在后端架构与DevOps自动化的交叉点上找到了自己的方向。",
+    "about.p2": "业余时间我喜欢构建个人工具——从带实时市场数据的<strong>投资组合追踪器</strong>到<strong>CI/CD自动化GUI</strong>。我相信好的软件应该是自然而然的：简洁、快速、坚不可摧。",
+    "about.p3": "我正处于公司转型阶段，借助<strong>Spring Boot、Docker和Kubernetes</strong>扩展微服务和云原生领域的专业能力。",
+    "about.stat1": "年经验", "about.stat2": "项目", "about.stat3": "好奇心",
+    "skills.label": "我的工具箱", "skills.title": "技术栈与<br>专业技能。",
+    "skills.s1.name": "Java生态系统", "skills.s1.desc": "专注于可靠性、性能和可维护性的企业级开发。",
+    "skills.s2.name": "DevOps与CI/CD", "skills.s2.desc": "利用现代容器化技术，自动化从构建到生产的完整交付流水线。",
+    "skills.s3.name": "后端与数据", "skills.s3.desc": "设计和查询关系型数据库，注重数据完整性和查询性能。",
+    "skills.s4.name": "工具与工作流", "skills.s4.desc": "熟练使用现代工具链和版本控制工作流，在专业环境中高效工作。",
+    "skills.s5.name": "自托管服务", "skills.s5.desc": "运营个人基础设施：家庭服务器、自动化、反向代理和云服务。",
+    "skills.s6.name": "软件架构", "skills.s6.desc": "深入理解分布式系统、微服务模式和API网关设计。",
+    "projects.label": "我的作品", "projects.title": "精选<br>项目。",
+    "projects.p1.desc": "基于Java Swing的桌面应用，追踪Trade Republic上的六个投资仓位，实时获取Yahoo Finance和CoinGecko的市场数据，内置复利建模的PAC模拟器。",
+    "projects.p2.desc": "DevOps自动化工具，支持Jenkins任务并行执行、动态加载GitLab分支及自动创建YouTrack工单。提供Python/Tkinter和C#/.NET 8 WinForms两个版本。",
+    "projects.p3.desc": "基于yfinance的网页版投资追踪器，支持精确的EUR/USD汇率换算、资产配置图表以及股票、黄金和加密货币的历史表现可视化。",
+    "projects.p4.desc": "企业级批处理归档系统，实现storicizzaLog()自动化日志归档。包含Gson序列化修复，通过@SerializedName注解实现大小写不敏感的JSON解析。",
+    "badge.personal": "个人项目", "badge.finance": "金融", "badge.enterprise": "企业级",
+    "exp.label": "工作经历", "exp.title": "职业经历。",
+    "exp.e1.date": "2024 — 至今", "exp.e1.role": "Java开发工程师 · 恩波利，托斯卡纳",
+    "exp.e1.desc": "为银行业开发和维护企业级Java EE金融应用。负责批处理系统、REST API集成及内部工具开发，使用Servlet/JSP、Maven、Tomcat和DB2。目前参与向微服务和云原生架构的转型工作。",
+    "exp.e2.company": "初级开发工程师", "exp.e2.role": "软件开发 · 前职位",
+    "exp.e2.desc": "入门级软件开发经验，培养了面向对象编程、数据库管理和应用开发的基础技能，精通Java、SQL及协作版本控制工作流。",
+    "contact.label": "联系我", "contact.title": "保持联系。",
+    "contact.desc": "欢迎探讨有趣的项目、技术挑战，以及关于软件架构、DevOps或长远规划的话题。",
+    "contact.fname": "姓名", "contact.fname.ph": "您的姓名",
+    "contact.femail": "邮箱", "contact.fmsg": "留言", "contact.fmsg.ph": "您想聊些什么？",
+    "contact.send": "发送消息", "contact.sent": "✓ 已发送！",
+    "footer.built": "用 ☕ 和Java精神打造"
   }
+};
+
+translations.en = {
+  "nav.about": "About", "nav.skills": "Skills", "nav.projects": "Projects",
+  "nav.experience": "Experience", "nav.contact": "Contact",
+  "hero.tag": "Available for opportunities",
+  "hero.h1": "Developer",
+  "hero.desc": "Java developer specializing in enterprise applications and full-stack solutions. Passionate about clean architecture, DevOps automation, and software built to last.",
+  "hero.cta1": "View work", "hero.cta2": "Get in touch", "hero.scroll": "Scroll",
+  "about.label": "About me",
+  "about.title": "Building systems<br>that scale.",
+  "about.p1": "I'm a Java developer based in <strong>Empoli, Tuscany</strong>, specializing in enterprise Java EE applications for the financial sector. I thrive at the intersection of backend architecture and DevOps automation.",
+  "about.p2": "In my spare time I build personal tools — from a <strong>portfolio tracker</strong> with live market data to <strong>CI/CD automation GUIs</strong>. I'm driven by the idea that good software should feel inevitable: simple, fast, and hard to break.",
+  "about.p3": "I'm currently growing through a company transition, expanding my expertise in microservices and cloud-native with <strong>Spring Boot, Docker, and Kubernetes</strong>.",
+  "about.stat1": "Yrs exp.", "about.stat2": "Projects", "about.stat3": "Curiosity",
+  "skills.label": "What I work with", "skills.title": "Tech stack &amp;<br>expertise.",
+  "skills.s1.name": "Java Ecosystem", "skills.s1.desc": "Enterprise-grade development with a focus on reliability, performance, and maintainability.",
+  "skills.s2.name": "DevOps &amp; CI/CD", "skills.s2.desc": "Automating the full delivery pipeline from build to production with modern containerization.",
+  "skills.s3.name": "Backend &amp; Data", "skills.s3.desc": "Designing and querying relational databases with attention to integrity and performance.",
+  "skills.s4.name": "Tools &amp; Workflow", "skills.s4.desc": "Productive in a professional environment with modern tooling and version control workflows.",
+  "skills.s5.name": "Self-Hosting", "skills.s5.desc": "Running personal infrastructure: home server, automation, reverse proxies, and cloud services.",
+  "skills.s6.name": "Architecture", "skills.s6.desc": "Understanding of distributed systems, microservices patterns, and API gateway design.",
+  "projects.label": "What I've built", "projects.title": "Selected<br>projects.",
+  "projects.p1.desc": "Java Swing desktop app tracking six Trade Republic investment positions with live market data from Yahoo Finance and CoinGecko. Features a PAC simulator for long-term compound growth projections.",
+  "projects.p2.desc": "DevOps automation tool for parallel Jenkins job execution with dynamic GitLab branch loading and automated YouTrack issue creation. Available in Python/Tkinter and C#/.NET 8 WinForms.",
+  "projects.p3.desc": "Web-based investment tracker using yfinance with accurate EUR/USD conversion, asset allocation charts, and historical performance visualization across equity, gold, and crypto.",
+  "projects.p4.desc": "Enterprise batch archival system implementing storicizzaLog() for automated log historicization. Includes Gson serialization fixes with @SerializedName for case-insensitive JSON parsing.",
+  "badge.personal": "Personal", "badge.finance": "Finance", "badge.enterprise": "Enterprise",
+  "exp.label": "Where I've worked", "exp.title": "Experience.",
+  "exp.e1.date": "2024 — Present", "exp.e1.role": "Java Developer · Empoli, Tuscany",
+  "exp.e1.desc": "Development and maintenance of enterprise Java EE financial applications for the banking sector. Working on batch processing, REST API integrations, and internal tooling with Servlet/JSP, Maven, Tomcat, and DB2. Currently supporting an architectural transition toward microservices and cloud-native infrastructure.",
+  "exp.e2.company": "Junior Developer", "exp.e2.role": "Software Development · Previous Role",
+  "exp.e2.desc": "Entry-level software development experience building foundational skills in OOP, database management, and application development. Proficiency in Java, SQL, and collaborative version control workflows.",
+  "contact.label": "Let's talk", "contact.title": "Get in touch.",
+  "contact.desc": "Open to interesting projects, challenging problems, and conversations about software architecture, DevOps, or long-term thinking.",
+  "contact.fname": "Name", "contact.fname.ph": "Your name",
+  "contact.femail": "Email", "contact.fmsg": "Message", "contact.fmsg.ph": "What's on your mind?",
+  "contact.send": "Send message", "contact.sent": "✓ Sent!",
+  "footer.built": "Built with ☕ and Java spirit"
+};
+
+let currentLang = 'it';
+
+function setLang(lang) {
+  if (lang === currentLang) return;
+  currentLang = lang;
+  document.getElementById('btn-it').classList.toggle('active', lang === 'it');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+  document.documentElement.lang = lang;
+
+  const els = document.querySelectorAll('[data-i18n]');
+  els.forEach(el => el.classList.add('lang-fade'));
+
+  setTimeout(() => {
+    const t = translations[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (t[key] !== undefined) el.placeholder = t[key];
+    });
+    els.forEach(el => el.classList.remove('lang-fade'));
+  }, 150);
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+function handleSend() {
+  const btn = document.getElementById('send-btn');
+  const t = translations[currentLang];
+  btn.textContent = t['contact.sent'];
+  btn.style.background = '#28c840';
+  setTimeout(() => {
+    btn.innerHTML = t['contact.send'];
+    btn.style.background = '';
+  }, 3000);
+}
 </script>
 </body>
 </html>
