@@ -185,7 +185,9 @@ footer { background: #08090d; border-top: 1px solid var(--border-faint); padding
 @keyframes fadeIn { from{opacity:0} to{opacity:1} }
 @keyframes scrollPulse { 0%,100%{opacity:.3} 50%{opacity:1} }
 
-/* ── SCROLL PROGRESS BAR ── */
+::selection { background: rgba(240,165,0,0.35); color: #fff7e0; }
+::-moz-selection { background: rgba(240,165,0,0.35); color: #fff7e0; }
+
 #scrollBar { position:fixed; top:0; left:0; height:2px; background:var(--amber); z-index:9999; width:0%; transition:width .1s linear; box-shadow: 0 0 8px rgba(240,165,0,0.6); }
 
 /* ── CUSTOM CURSOR ── */
@@ -453,7 +455,7 @@ body:has(a:hover) #cursorRing, body:has(button:hover) #cursorRing { width:50px; 
         <div class="section-label" data-i18n="contact.label">Parliamo</div>
         <h2 class="section-title" data-i18n="contact.title">Scrivimi.</h2>
         <p class="about-body mb-4" data-i18n="contact.desc">Aperto a progetti interessanti, sfide complesse e conversazioni su architettura software, DevOps o pensiero a lungo termine.</p>
-        <a href="mailto:your@email.com" class="contact-link"><span>📧 &nbsp; stapanealessandro@gmail.com</span><span class="arrow">→</span></a>
+        <a href="mailto:your@email.com" class="contact-link"><span>📧 &nbsp; stapanaealessandro@gmail.com</span><span class="arrow">→</span></a>
         <a href="https://github.com/Alw12" target="_blank" class="contact-link"><span>🐙 &nbsp; github.com/Alw12</span><span class="arrow">→</span></a>
         <a href="https://linkedin.com" target="_blank" class="contact-link"><span>💼 &nbsp; LinkedIn</span><span class="arrow">→</span></a>
       </div>
