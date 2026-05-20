@@ -60,8 +60,17 @@ a { color: var(--amber); text-decoration: none; }
 .code-card { background: var(--bg3); border: 1px solid var(--border-faint); padding: 1.8rem; font-size: 12px; line-height: 2; position: relative; opacity: 0; animation: fadeIn 1s .4s forwards; }
 .code-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--amber); }
 .code-dots { display: flex; gap: 6px; margin-bottom: 1.4rem; }
-.code-dots span { width: 10px; height: 10px; border-radius: 50%; }
-.d1{background:#ff5f57}.d2{background:#febc2e}.d3{background:#28c840}
+.code-dots span { width: 10px; height: 10px; border-radius: 50%; cursor: pointer; position: relative; transition: filter .15s; display: flex; align-items: center; justify-content: center; font-size: 7px; font-weight: 700; color: transparent; }
+.code-dots span:hover { filter: brightness(0.75); color: rgba(0,0,0,0.6); }
+.d1 { background: #ff5f57; }
+.d2 { background: #febc2e; }
+.d3 { background: #28c840; }
+.code-card { background: var(--bg3); border: 1px solid var(--border-faint); padding: 1.8rem; font-size: 12px; line-height: 2; position: relative; opacity: 0; animation: fadeIn 1s .4s forwards; transition: all .3s ease; }
+.code-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--amber); }
+.code-card.minimized .code-content { display: none; }
+.code-card.minimized { padding-bottom: 1.8rem; }
+.code-card.maximized { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90vw; max-width: 700px; z-index: 999; font-size: 14px; line-height: 2.1; box-shadow: 0 0 0 9999px rgba(0,0,0,0.7); }
+.code-card.closed { opacity: 0; pointer-events: none; transform: scale(0.95); }
 .kw{color:#c792ea}.cl{color:#82aaff}.str{color:#c3e88d}.cm{color:#4a4840}.fn{color:var(--amber)}.nu{color:#f78c6c}
 .scroll-hint { display: flex; flex-direction: column; align-items: center; gap: 7px; color: #4a4840; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; margin-top: 2.5rem; opacity: 0; animation: fadeIn 1s 1.2s forwards; }
 .scroll-line { width: 1px; height: 44px; background: linear-gradient(to bottom, var(--amber), transparent); animation: scrollPulse 2s infinite; }
@@ -137,12 +146,94 @@ footer { background: #08090d; border-top: 1px solid var(--border-faint); padding
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s, transform .7s; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
+/* ── STAGGERED SKILL CARDS ── */
+.skill-card { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease, background .25s; }
+.skills-visible .skill-card:nth-child(1) { animation: fadeUp .5s .05s forwards; }
+.skills-visible .skill-card:nth-child(2) { animation: fadeUp .5s .15s forwards; }
+.skills-visible .skill-card:nth-child(3) { animation: fadeUp .5s .25s forwards; }
+.skills-visible .skill-card:nth-child(4) { animation: fadeUp .5s .35s forwards; }
+.skills-visible .skill-card:nth-child(5) { animation: fadeUp .5s .45s forwards; }
+.skills-visible .skill-card:nth-child(6) { animation: fadeUp .5s .55s forwards; }
+
+/* ── FLOATING CODE CARD ── */
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+.code-card:not(.minimized):not(.maximized):not(.closed) { animation: fadeIn 1s .4s forwards, float 6s 1.5s ease-in-out infinite; }
+
+/* ── SHIMMER ON SECTION LABEL ── */
+@keyframes shimmer { 0%{background-position:200% center} 100%{background-position:-200% center} }
+.section-label { background: linear-gradient(90deg, var(--amber) 0%, #fff7e0 40%, var(--amber) 60%, var(--amber-dim) 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 4s linear infinite; }
+.section-label::after { background: var(--amber-dim); -webkit-background-clip: unset; background-clip: unset; -webkit-text-fill-color: unset; }
+
+/* ── TYPEWRITER CURSOR ── */
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+.cursor { display: inline-block; width: 3px; height: 1em; background: var(--amber); margin-left: 2px; vertical-align: text-bottom; animation: blink 1s step-end infinite; }
+
+/* ── PROJECT ROW SLIDE ── */
+.project-row { opacity: 0; transform: translateX(-20px); transition: opacity .5s ease, transform .5s ease, background .2s, border-color .2s; }
+.projects-visible .project-row:nth-child(1) { animation: slideIn .5s .05s forwards; }
+.projects-visible .project-row:nth-child(2) { animation: slideIn .5s .15s forwards; }
+.projects-visible .project-row:nth-child(3) { animation: slideIn .5s .25s forwards; }
+.projects-visible .project-row:nth-child(4) { animation: slideIn .5s .35s forwards; }
+@keyframes slideIn { from{opacity:0;transform:translateX(-20px)} to{opacity:1;transform:translateX(0)} }
+
+/* ── AMBER PULSE on hero tag ── */
+@keyframes pulseDot { 0%,100%{box-shadow:0 0 0 0 rgba(240,165,0,.4)} 50%{box-shadow:0 0 0 8px rgba(240,165,0,0)} }
+.hero-tag::before { animation: none; }
+.hero-online { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #28c840; margin-right: 6px; animation: pulseDot 2s infinite; }
+
 @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
 @keyframes fadeIn { from{opacity:0} to{opacity:1} }
 @keyframes scrollPulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+/* ── SCROLL PROGRESS BAR ── */
+#scrollBar { position:fixed; top:0; left:0; height:2px; background:var(--amber); z-index:9999; width:0%; transition:width .1s linear; box-shadow: 0 0 8px rgba(240,165,0,0.6); }
+
+/* ── CUSTOM CURSOR ── */
+#cursor { position:fixed; width:12px; height:12px; background:var(--amber); border-radius:50%; pointer-events:none; z-index:99999; transform:translate(-50%,-50%); transition:transform .1s, width .2s, height .2s, opacity .2s; mix-blend-mode:difference; }
+#cursorRing { position:fixed; width:36px; height:36px; border:1px solid rgba(240,165,0,0.5); border-radius:50%; pointer-events:none; z-index:99998; transform:translate(-50%,-50%); transition:all .15s ease; }
+body:has(a:hover) #cursor, body:has(button:hover) #cursor { width:20px; height:20px; }
+body:has(a:hover) #cursorRing, body:has(button:hover) #cursorRing { width:50px; height:50px; border-color:rgba(240,165,0,0.8); }
+
+/* ── GLITCH on h1 ── */
+@keyframes glitch1 { 0%,95%{clip-path:inset(0 0 100% 0)} 96%{clip-path:inset(10% 0 80% 0);transform:translate(-3px,0)} 97%{clip-path:inset(60% 0 20% 0);transform:translate(3px,0)} 98%{clip-path:inset(30% 0 50% 0);transform:translate(-2px,0)} 99%,100%{clip-path:inset(0 0 100% 0)} }
+@keyframes glitch2 { 0%,97%{clip-path:inset(0 0 100% 0)} 98%{clip-path:inset(40% 0 40% 0);transform:translate(4px,0);color:#0ff} 99%{clip-path:inset(70% 0 10% 0);transform:translate(-4px,0);color:#f0a500} 100%{clip-path:inset(0 0 100% 0)} }
+.glitch-wrap { position:relative; display:inline-block; }
+.glitch-wrap::before, .glitch-wrap::after { content:attr(data-text); position:absolute; top:0; left:0; width:100%; }
+.glitch-wrap::before { animation:glitch1 4s infinite; color:var(--amber); }
+.glitch-wrap::after { animation:glitch2 4s .5s infinite; }
+
+/* ── RIPPLE on buttons ── */
+.btn-amber, .btn-outline-amber { overflow:hidden; position:relative; }
+.ripple { position:absolute; border-radius:50%; transform:scale(0); animation:rippleAnim .5s linear; background:rgba(255,255,255,0.25); pointer-events:none; }
+@keyframes rippleAnim { to{transform:scale(4);opacity:0} }
+
+/* ── TILT on skill cards (via JS) ── */
+.skill-card { transform-style:preserve-3d; will-change:transform; }
+
+/* ── ANIMATED BORDER on code card ── */
+@keyframes borderRun { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+.code-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--amber), #fff8dc, #f78c6c, var(--amber)); background-size:300% auto; animation:borderRun 3s linear infinite; }
+
+/* ── PARTICLES canvas ── */
+#particleCanvas { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+#hero .container { position:relative; z-index:1; }
+
+/* ── TIMELINE DRAW ── */
+@keyframes drawLine { from{height:0} to{height:100%} }
+.timeline-visible .timeline::before { animation: drawLine 1.2s ease forwards; }
+.timeline::before { height:0; }
+
+/* ── SCRAMBLE placeholder (done in JS) ── */
+.scramble { display:inline; }
+
+/* ── MAGNETIC wrapper ── */
+.magnetic-wrap { display:inline-block; }
 </style>
 </head>
 <body>
+<div id="scrollBar"></div>
+<div id="cursor"></div>
+<div id="cursorRing"></div>
 
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg fixed-top">
@@ -171,16 +262,17 @@ footer { background: #08090d; border-top: 1px solid var(--border-faint); padding
 </nav>
 
 <!-- HERO -->
-<section id="hero" class="py-5">
+<section id="hero" class="py-5" style="position:relative;overflow:hidden;">
+  <canvas id="particleCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
   <div class="container">
     <div class="row align-items-center min-vh-100 py-5">
       <div class="col-lg-6 mb-5 mb-lg-0">
-        <div class="hero-tag" data-i18n="hero.tag">Disponibile per opportunità</div>
-        <h1 class="hero-h1">Software<br><span data-i18n="hero.h1">Developer</span></h1>
+        <div class="hero-tag" data-i18n="hero.tag"><span class="hero-online"></span>Disponibile per opportunità</div>
+        <h1 class="hero-h1">Software<br><span class="glitch-wrap" data-text="Developer"><span id="typeTarget" data-i18n="hero.h1">Developer</span></span><span class="cursor"></span></h1>
         <p class="hero-desc" data-i18n="hero.desc">Sviluppatore Java specializzato in applicazioni enterprise e soluzioni full-stack. Appassionato di architetture pulite, automazione DevOps e software che dura nel tempo.</p>
         <div class="hero-cta d-flex gap-3 flex-wrap">
-          <a href="#projects" class="btn btn-amber" data-i18n="hero.cta1">Vedi i progetti</a>
-          <a href="#contact" class="btn btn-outline-amber" data-i18n="hero.cta2">Contattami</a>
+          <div class="magnetic-wrap"><a href="#projects" class="btn btn-amber" data-i18n="hero.cta1">Vedi i progetti</a></div>
+          <div class="magnetic-wrap"><a href="#contact" class="btn btn-outline-amber" data-i18n="hero.cta2">Contattami</a></div>
         </div>
         <div class="scroll-hint d-none d-lg-flex">
           <span data-i18n="hero.scroll">Scorri</span>
@@ -188,8 +280,13 @@ footer { background: #08090d; border-top: 1px solid var(--border-faint); padding
         </div>
       </div>
       <div class="col-lg-6">
-        <div class="code-card">
-          <div class="code-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        <div class="code-card" id="codeCard">
+          <div class="code-dots">
+            <span class="d1" onclick="macClose()" title="Chiudi">✕</span>
+            <span class="d2" onclick="macMinimize()" title="Minimizza">−</span>
+            <span class="d3" onclick="macMaximize()" title="Espandi">+</span>
+          </div>
+          <div class="code-content">
           <span class="cm">// Alessandro Stapane</span><br>
           <span class="kw">public class</span> <span class="cl">Developer</span> {<br>
           &nbsp;&nbsp;<span class="kw">private final</span> <span class="cl">String</span> name = <span class="str">"Alessandro"</span>;<br>
@@ -203,6 +300,7 @@ footer { background: #08090d; border-top: 1px solid var(--border-faint); padding
           &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return true</span>; <span class="cm">// sempre</span><br>
           &nbsp;&nbsp;}<br>
           }
+          </div>
         </div>
       </div>
     </div>
@@ -372,7 +470,7 @@ footer { background: #08090d; border-top: 1px solid var(--border-faint); padding
 <!-- FOOTER -->
 <footer>
   <div class="container d-flex justify-content-between flex-wrap gap-2">
-    <span>© 2026 Alessandro Stapane</span>
+    <span>© 2025 Alessandro Stapane</span>
     <span data-i18n="footer.built">Fatto con ☕ e spirito Java</span>
   </div>
 </footer>
@@ -452,6 +550,54 @@ function setLang(lang) {
 const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), {threshold:0.08, rootMargin:'0px 0px -50px 0px'});
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
+// Stagger skill cards
+const skillsObs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('skills-visible'); skillsObs.unobserve(e.target); } }), {threshold:0.1});
+document.querySelectorAll('.row.g-0').forEach(el => { if(el.querySelector('.skill-card')) skillsObs.observe(el); });
+
+// Stagger project rows
+const projObs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('projects-visible'); projObs.unobserve(e.target); } }), {threshold:0.1});
+document.querySelectorAll('.projects-list, [class*="project-row"]').forEach(el => { if(el.querySelector) projObs.observe(el); });
+const projContainer = document.querySelector('.reveal:has(.project-row)');
+if(projContainer) projObs.observe(projContainer);
+
+// Counter animation on stats
+function animateCounter(el, target, suffix='') {
+  let start = 0; const dur = 1200; const step = 16;
+  const inc = target / (dur / step);
+  const timer = setInterval(() => {
+    start += inc;
+    if(start >= target){ el.textContent = (target === Infinity ? '∞' : target) + suffix; clearInterval(timer); }
+    else { el.textContent = Math.floor(start) + suffix; }
+  }, step);
+}
+const statsObs = new IntersectionObserver(entries => entries.forEach(e => {
+  if(e.isIntersecting){
+    const nums = e.target.querySelectorAll('.stat-num');
+    if(nums[0]) animateCounter(nums[0], 2, '+');
+    if(nums[1]) animateCounter(nums[1], 10, '+');
+    if(nums[2]) { setTimeout(()=>{ nums[2].textContent='∞'; }, 800); }
+    statsObs.unobserve(e.target);
+  }
+}), {threshold:0.5});
+document.querySelectorAll('.about-stats, .row:has(.stat-num)').forEach(el => statsObs.observe(el));
+
+// Typewriter effect on page load
+function typeWriter(el, text, speed=80) {
+  el.textContent = '';
+  let i = 0;
+  const t = setInterval(() => {
+    el.textContent += text[i++];
+    if(i >= text.length) clearInterval(t);
+  }, speed);
+}
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const target = document.getElementById('typeTarget');
+    if(target) typeWriter(target, 'Developer', 90);
+  }, 900);
+});
+
+
 // Animate progress bars on scroll
 const progressObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
@@ -465,7 +611,113 @@ const progressObs = new IntersectionObserver(entries => {
 }, {threshold: 0.2});
 document.querySelectorAll('.skills-grid, .row.g-0.reveal').forEach(el => progressObs.observe(el));
 
-// Toast on form submit
+// Mac dots
+function macClose() {
+  const card = document.getElementById('codeCard');
+  card.classList.add('closed');
+  setTimeout(() => {
+    card.innerHTML = '<div class="code-dots"><span class="d1" onclick="macRestore()" title="Riapri">✕</span><span class="d2" style="opacity:.4">−</span><span class="d3" style="opacity:.4">+</span></div><div style="color:var(--text-dim);font-size:11px;letter-spacing:.06em;">// finestra chiusa — clicca 🔴 per riaprire</div>';
+    card.classList.remove('closed');
+  }, 300);
+}
+let minimized = false;
+function macMinimize() {
+  const card = document.getElementById('codeCard');
+  minimized = !minimized;
+  card.classList.toggle('minimized', minimized);
+}
+let maximized = false;
+function macMaximize() {
+  const card = document.getElementById('codeCard');
+  maximized = !maximized;
+  card.classList.toggle('maximized', maximized);
+  if (maximized) {
+    card.onclick = (e) => { if(e.target === card) macMaximize(); };
+  }
+}
+function macRestore() {
+  location.reload();
+}
+
+
+// ── SCROLL PROGRESS BAR
+window.addEventListener('scroll', () => {
+  const bar = document.getElementById('scrollBar');
+  const p = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  bar.style.width = p + '%';
+});
+
+// ── CUSTOM CURSOR
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let cx = 0, cy = 0, rx = 0, ry = 0;
+window.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; cursor.style.left = cx+'px'; cursor.style.top = cy+'px'; });
+function lerpCursor() { rx += (cx - rx) * 0.12; ry += (cy - ry) * 0.12; cursorRing.style.left = rx+'px'; cursorRing.style.top = ry+'px'; requestAnimationFrame(lerpCursor); }
+lerpCursor();
+
+// ── PARTICLES
+const pCanvas = document.getElementById('particleCanvas');
+const pCtx = pCanvas.getContext('2d');
+let pts = [];
+function resizePCanvas() { pCanvas.width = pCanvas.offsetWidth; pCanvas.height = pCanvas.offsetHeight; }
+resizePCanvas(); window.addEventListener('resize', resizePCanvas);
+class Pt {
+  constructor() { this.reset(); }
+  reset() { this.x=Math.random()*pCanvas.width; this.y=Math.random()*pCanvas.height; this.size=Math.random()*1.4+0.3; this.vx=(Math.random()-.5)*.4; this.vy=(Math.random()-.5)*.4; this.o=Math.random()*.45+.1; }
+  update() { this.x+=this.vx; this.y+=this.vy; if(this.x<0||this.x>pCanvas.width||this.y<0||this.y>pCanvas.height) this.reset(); }
+  draw() { pCtx.beginPath(); pCtx.arc(this.x,this.y,this.size,0,Math.PI*2); pCtx.fillStyle=`rgba(240,165,0,${this.o})`; pCtx.fill(); }
+}
+for(let i=0;i<80;i++) pts.push(new Pt());
+function animPts() {
+  pCtx.clearRect(0,0,pCanvas.width,pCanvas.height);
+  pts.forEach(p=>{p.update();p.draw();});
+  for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++) { const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y); if(d<90){pCtx.beginPath();pCtx.moveTo(pts[i].x,pts[i].y);pCtx.lineTo(pts[j].x,pts[j].y);pCtx.strokeStyle=`rgba(240,165,0,${.07*(1-d/90)})`;pCtx.stroke();} }
+  requestAnimationFrame(animPts);
+}
+animPts();
+
+// ── RIPPLE on buttons
+document.querySelectorAll('.btn-amber, .btn-outline-amber').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    const r=document.createElement('span'); r.classList.add('ripple');
+    const rect=this.getBoundingClientRect(), size=Math.max(rect.width,rect.height);
+    r.style.cssText=`width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;
+    this.appendChild(r); setTimeout(()=>r.remove(),600);
+  });
+});
+
+// ── MAGNETIC BUTTONS
+document.querySelectorAll('.magnetic-wrap').forEach(wrap => {
+  const btn = wrap.querySelector('.btn');
+  wrap.addEventListener('mousemove', e => { const rect=wrap.getBoundingClientRect(); btn.style.transform=`translate(${(e.clientX-rect.left-rect.width/2)*.3}px,${(e.clientY-rect.top-rect.height/2)*.3}px)`; });
+  wrap.addEventListener('mouseleave', () => { btn.style.transform='translate(0,0)'; btn.style.transition='transform .4s ease'; });
+  wrap.addEventListener('mouseenter', () => { btn.style.transition='transform .1s ease'; });
+});
+
+// ── 3D TILT on skill cards
+document.querySelectorAll('.skill-card').forEach(card => {
+  card.addEventListener('mousemove', e => { const rect=card.getBoundingClientRect(),x=(e.clientX-rect.left)/rect.width-.5,y=(e.clientY-rect.top)/rect.height-.5; card.style.transform=`perspective(600px) rotateY(${x*12}deg) rotateX(${-y*12}deg) translateZ(8px)`; });
+  card.addEventListener('mouseleave', () => { card.style.transform='perspective(600px) rotateY(0) rotateX(0) translateZ(0)'; card.style.transition='transform .5s ease'; });
+  card.addEventListener('mouseenter', () => { card.style.transition='transform .1s ease'; });
+});
+
+// ── TEXT SCRAMBLE on section titles
+const scrambleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&';
+function scrambleText(el) {
+  const orig = el.innerText; let frame = 0; const total = 22;
+  const t = setInterval(() => {
+    el.innerText = orig.split('').map((c,i) => { if(c===' '||c==='\n') return c; if(i<(frame/total)*orig.length) return c; return scrambleChars[Math.floor(Math.random()*scrambleChars.length)]; }).join('');
+    if(++frame>total){ el.innerText=orig; clearInterval(t); }
+  }, 40);
+}
+const scrambleObs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){ scrambleText(e.target); scrambleObs.unobserve(e.target); } }), {threshold:.5});
+document.querySelectorAll('.section-title').forEach(el => scrambleObs.observe(el));
+
+// ── TIMELINE DRAW
+const tlObs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){ e.target.parentElement.classList.add('timeline-visible'); tlObs.unobserve(e.target); } }), {threshold:.1});
+document.querySelectorAll('.timeline').forEach(el => tlObs.observe(el));
+
+
 function handleSend() {
   const t = translations[currentLang];
   document.querySelector('.toast-header strong').textContent = t['toast.title'];
