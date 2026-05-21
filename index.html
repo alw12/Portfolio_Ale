@@ -4,6 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alessandro Stapane — Full Stack Developer</title>
+
+<!-- Open Graph -->
+<meta property="og:title" content="Alessandro Stapane — Full Stack Developer">
+<meta property="og:description" content="Full Stack Developer con 3+ anni di esperienza. Java EE, AngularJS, C#, Docker. Attualmente in CABEL, Empoli.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alessandrostapane.vercel.app">
+<meta property="og:image" content="https://alessandrostapane.vercel.app/og-preview.png">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Alessandro Stapane — Full Stack Developer">
+<meta name="twitter:description" content="Full Stack Developer · Java EE · AngularJS · C# · Docker · Empoli, IT">
+<meta name="description" content="Portfolio di Alessandro Stapane, Full Stack Developer con esperienza in Java EE, AngularJS, C#, ASP.NET e Docker. Disponibile per opportunità ibride o remote.">
+
+<!-- Analytics (Plausible - privacy-friendly, no cookies) -->
+<script defer data-domain="alessandrostapane.vercel.app" src="https://plausible.io/js/script.js"></script>
+
+<!-- EmailJS -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
@@ -15,6 +34,72 @@
   --text-muted-custom:#9a9890;--text-dim:#6a6860;
   --border-faint:rgba(255,255,255,0.09);--border-amber:rgba(240,165,0,0.22);
 }
+/* LIGHT MODE */
+body.light {
+  --bs-body-bg:#f5f4f0;--bs-body-color:#1a1a1a;
+  --bg2:#eeede9;--bg3:#e6e4df;
+  --text-muted-custom:#555450;--text-dim:#888580;
+  --border-faint:rgba(0,0,0,0.1);--border-amber:rgba(200,120,0,0.3);
+  --amber:#c87800;--amber-dim:#a06000;--amber-glow:rgba(200,120,0,0.1);
+}
+body.light { background:#f5f4f0; color:#1a1a1a; }
+body.light .navbar { background:rgba(245,244,240,0.95)!important; }
+body.light .navbar.scrolled { background:rgba(245,244,240,0.99)!important; }
+body.light .about-body, body.light .exp-desc, body.light .skill-desc, body.light .project-desc { color:#555450; }
+body.light .stat-box, body.light .project-row, body.light .cert-card, body.light .contact-link { background:#eeede9; }
+body.light .skill-card { background:#f5f4f0; }
+body.light .form-control { background:#eeede9!important; color:#1a1a1a!important; }
+body.light #termOutput, body.light #terminal-wrap { background:#f0eee8; }
+body.light .code-card { background:#e8e6e0; }
+body.light footer { background:#f5f4f0; }
+body.light #splash { background:#f5f4f0; }
+body.light .splash-ascii { color:var(--amber); }
+body.light .tc-text { color:#2a2a2a; }
+body.light .tc-gray { color:#888580; }
+
+/* THEME TOGGLE BUTTON */
+#themeToggle {
+  background:transparent;border:1px solid var(--border-amber);
+  color:var(--amber);width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:14px;transition:all .25s;flex-shrink:0;
+}
+#themeToggle:hover { background:var(--amber-glow); transform:rotate(20deg); }
+
+/* NAVBAR BRAND ANIMATION */
+.navbar-brand { position:relative; overflow:hidden; }
+.nb-short { display:inline-block; transition:opacity .3s, transform .3s; }
+.nb-full { position:absolute; left:0; top:50%; transform:translateY(-50%) translateX(10px); opacity:0; white-space:nowrap; font-size:.85rem; transition:opacity .3s, transform .3s; }
+.navbar-brand:hover .nb-short { opacity:0; transform:translateX(-8px); }
+.navbar-brand:hover .nb-full { opacity:1; transform:translateY(-50%) translateX(0); }
+.navbar-brand:hover { min-width:200px; }
+
+/* LANGUAGES SECTION */
+.lang-card { background:var(--bg2); border:1px solid var(--border-faint); padding:1.2rem 1.5rem; display:flex; align-items:center; gap:1.2rem; transition:all .2s; }
+.lang-card:hover { border-color:var(--border-amber); background:var(--bg3); }
+.lang-flag { font-size:1.8rem; line-height:1; }
+.lang-name { font-family:'Syne',sans-serif; font-weight:700; font-size:.95rem; color:#e8e6de; }
+.lang-level { font-size:11px; color:var(--text-dim); letter-spacing:.06em; text-transform:uppercase; margin-top:2px; }
+.lang-bar-wrap { flex:1; height:4px; background:var(--border-faint); border-radius:2px; overflow:hidden; }
+.lang-bar { height:100%; border-radius:2px; background:linear-gradient(90deg,var(--amber-dim),var(--amber)); width:0; transition:width 1.2s ease; }
+.lang-pct { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--amber); font-weight:500; min-width:2.5ch; text-align:right; }
+
+/* CLIP-PATH REVEAL */
+.reveal {
+  opacity:0;
+  clip-path: inset(0 0 100% 0);
+  transition: opacity .7s ease, clip-path .7s cubic-bezier(.4,0,.2,1), transform .7s ease;
+  transform: translateY(20px);
+}
+.reveal.visible {
+  opacity:1;
+  clip-path: inset(0 0 0% 0);
+  transform: translateY(0);
+}
+.reveal-left { clip-path: inset(0 100% 0 0) !important; }
+.reveal-left.visible { clip-path: inset(0 0% 0 0) !important; }
+.reveal-right { clip-path: inset(0 0 0 100%) !important; }
+.reveal-right.visible { clip-path: inset(0 0 0 0%) !important; }
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;scroll-padding-top:72px;}
 body{background:#08090d;color:#e8e6de;font-family:'JetBrains Mono',monospace;font-size:14.5px;line-height:1.75;overflow-x:hidden;}
@@ -287,7 +372,10 @@ footer{background:#08090d;border-top:1px solid var(--border-faint);padding:1.5re
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="#">AS.</a>
+    <a class="navbar-brand" href="#">
+      <span class="nb-short">AS.</span>
+      <span class="nb-full">Alessandro Stapane</span>
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"><span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="navMenu">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -298,12 +386,15 @@ footer{background:#08090d;border-top:1px solid var(--border-faint);padding:1.5re
         <li class="nav-item"><a class="nav-link" href="#certifications" data-i18n="nav.certs">Certificazioni</a></li>
         <li class="nav-item"><a class="nav-link" href="#contact" data-i18n="nav.contact">Contatti</a></li>
       </ul>
-      <div class="lang-switch ms-lg-3 mt-2 mt-lg-0">
-        <button class="lang-btn active" onclick="setLang('it')" id="btn-it">IT</button>
-        <div class="lang-divider"></div>
-        <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
-        <div class="lang-divider"></div>
-        <button class="lang-btn" onclick="setLang('zh')" id="btn-zh">中文</button>
+      <div class="d-flex align-items-center gap-2 ms-lg-3 mt-2 mt-lg-0">
+        <div class="lang-switch">
+          <button class="lang-btn active" onclick="setLang('it')" id="btn-it">IT</button>
+          <div class="lang-divider"></div>
+          <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+          <div class="lang-divider"></div>
+          <button class="lang-btn" onclick="setLang('zh')" id="btn-zh">中文</button>
+        </div>
+        <button id="themeToggle" onclick="toggleTheme()" title="Cambia tema">🌙</button>
       </div>
     </div>
   </div>
@@ -370,8 +461,33 @@ footer{background:#08090d;border-top:1px solid var(--border-faint);padding:1.5re
         </div>
         <div class="row g-0 mt-4" style="border:1px solid var(--border-faint);">
           <div class="col-4"><div class="stat-box"><div class="stat-num" id="stat1">3+</div><div class="stat-lbl" data-i18n="about.stat1">Anni esp.</div></div></div>
-          <div class="col-4" style="border-left:1px solid var(--border-faint);border-right:1px solid var(--border-faint);"><div class="stat-box"><div class="stat-num" id="stat2">4</div><div class="stat-lbl" data-i18n="about.stat2">Aziende</div></div></div>
+          <div class="col-4" style="border-left:1px solid var(--border-faint);border-right:1px solid var(--border-faint);"><div class="stat-box"><div class="stat-num" id="stat2">2</div><div class="stat-lbl" data-i18n="about.stat2">Aziende</div></div></div>
           <div class="col-4"><div class="stat-box"><div class="stat-num" id="stat3">20+</div><div class="stat-lbl" data-i18n="about.stat3">Skills</div></div></div>
+        </div>
+
+        <!-- LANGUAGES -->
+        <div class="mt-4">
+          <div class="section-label" style="font-size:10px;" data-i18n="lang.label">Lingue</div>
+          <div class="d-flex flex-column gap-2">
+            <div class="lang-card">
+              <div class="lang-flag">🇮🇹</div>
+              <div>
+                <div class="lang-name">Italiano</div>
+                <div class="lang-level" data-i18n="lang.it">Madrelingua</div>
+              </div>
+              <div class="lang-bar-wrap"><div class="lang-bar" data-width="100"></div></div>
+              <div class="lang-pct">C2</div>
+            </div>
+            <div class="lang-card">
+              <div class="lang-flag">🇬🇧</div>
+              <div>
+                <div class="lang-name">Inglese</div>
+                <div class="lang-level" data-i18n="lang.en">Conoscenza professionale · B2</div>
+              </div>
+              <div class="lang-bar-wrap"><div class="lang-bar" data-width="65"></div></div>
+              <div class="lang-pct">B2</div>
+            </div>
+          </div>
         </div>
         <div class="d-flex gap-2 mt-3 flex-wrap">
           <span class="tag tag-amber">🇮🇹 Italiano — Madrelingua</span>
@@ -760,9 +876,10 @@ footer{background:#08090d;border-top:1px solid var(--border-faint);padding:1.5re
         <a href="https://github.com/Alw12" target="_blank" class="contact-link"><span>🐙 &nbsp; github.com/Alw12</span><span class="arrow">→</span></a>
       </div>
       <div class="col-lg-7">
-        <div class="mb-3"><label class="form-label" data-i18n="cf.name">Nome</label><input type="text" class="form-control" data-i18n-placeholder="cf.name.ph" placeholder="Il tuo nome"></div>
-        <div class="mb-3"><label class="form-label" data-i18n="cf.email">Email</label><input type="email" class="form-control" placeholder="stapanealessandro@gmail.com"></div>
-        <div class="mb-3"><label class="form-label" data-i18n="cf.msg">Messaggio</label><textarea class="form-control" data-i18n-placeholder="cf.msg.ph" placeholder="Di cosa vuoi parlarmi?"></textarea></div>
+        <div id="form-success" style="display:none;padding:1rem 1.5rem;background:var(--bg3);border:1px solid #a6e3a1;color:#a6e3a1;font-size:13px;margin-bottom:1rem;">✓ Messaggio inviato! Ti risponderò presto.</div>
+        <div class="mb-3"><label class="form-label" data-i18n="cf.name">Nome</label><input id="cf_name" type="text" class="form-control" data-i18n-placeholder="cf.name.ph" placeholder="Il tuo nome"></div>
+        <div class="mb-3"><label class="form-label" data-i18n="cf.email">Email</label><input id="cf_email" type="email" class="form-control" placeholder="stapanealessandro@gmail.com"></div>
+        <div class="mb-3"><label class="form-label" data-i18n="cf.msg">Messaggio</label><textarea id="cf_message" class="form-control" data-i18n-placeholder="cf.msg.ph" placeholder="Di cosa vuoi parlarmi?"></textarea></div>
         <button class="btn btn-amber" id="send-btn" onclick="handleSend()" data-i18n="cf.send">Invia messaggio</button>
       </div>
     </div>
@@ -1011,7 +1128,7 @@ document.querySelectorAll('.reveal').forEach(e=>{if(e.querySelector('.project-ro
 
 // Counter
 function counter(el,target,suffix=''){let s=0;const inc=target/(1200/16);const t=setInterval(()=>{s+=inc;if(s>=target){el.textContent=(target===Infinity?'∞':target)+suffix;clearInterval(t);}else el.textContent=Math.floor(s)+suffix;},16);}
-const cObs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){const ns=x.target.querySelectorAll('.stat-num');if(ns[0])counter(ns[0],3,'+');if(ns[1])counter(ns[1],4,'');if(ns[2])counter(ns[2],20,'+');cObs.unobserve(x.target);}}),{threshold:.5});
+const cObs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){const ns=x.target.querySelectorAll('.stat-num');if(ns[0])counter(ns[0],3,'+');if(ns[1])counter(ns[1],2,'');if(ns[2])counter(ns[2],20,'+');cObs.unobserve(x.target);}}),{threshold:.5});
 document.querySelectorAll('.row:has(.stat-num)').forEach(e=>cObs.observe(e));
 
 // Timeline draw
@@ -1094,7 +1211,8 @@ const termCmds = {
 <span class="tc-green">contact</span>     <span class="tc-gray">→</span> <span class="tc-text">come contattarmi</span><br>
 <span class="tc-green">fun</span>         <span class="tc-gray">→</span> <span class="tc-text">fatto random su di me</span><br>
 <span class="tc-green">map</span>         <span class="tc-gray">→</span> <span class="tc-text">il mio percorso geografico</span><br>
-<span class="tc-green">clear</span>       <span class="tc-gray">→</span> <span class="tc-text">pulisci il terminale</span>
+<span class="tc-green">clear</span>       <span class="tc-gray">→</span> <span class="tc-text">pulisci il terminale</span><br>
+<span class="tc-dim">ls · sudo · hack · coffee · matrix → 🥚</span>
 </div>`,
 
   whoami: () => `<div class="term-block">
@@ -1174,6 +1292,50 @@ const termCmds = {
 </div>`,
 
   pac: () => null,
+
+  sudo: () => `<div class="term-block"><span class="tc-red">Accesso negato.</span> <span class="tc-gray">Non sei root qui. 😄</span></div>`,
+
+  hack: () => {
+    setTimeout(()=>{
+      const out = document.getElementById('termOutput');
+      const lines = ['Inizializzazione sequenza...','Connessione a mainframe...','Bypassando firewall...','Accesso root ottenuto...','...','...scherzo 😄 sei nel portfolio di Alessandro, non in Mr. Robot.'];
+      lines.forEach((l,i) => setTimeout(()=>{
+        const d=document.createElement('div');d.className='term-cmd-line term-line-anim';
+        d.innerHTML=`<span class="tc-${i<4?'red':i===5?'amber':'gray'}">${l}</span>`;
+        out.appendChild(d);out.scrollTop=out.scrollHeight;
+      },i*300));
+    },100);
+    return null;
+  },
+
+  coffee: () => `<div class="term-block">
+<span class="tc-amber">Preparazione caffè...</span><br><br>
+<span class="tc-gray">    ( (</span><br>
+<span class="tc-gray">     ) )</span><br>
+<span class="tc-amber">  .______.</span><br>
+<span class="tc-amber">  |      |]</span><br>
+<span class="tc-amber">  \\      /</span><br>
+<span class="tc-amber">   '----'</span><br><br>
+<span class="tc-green">☕ Caffè pronto. Ora si può programmare.</span>
+</div>`,
+
+  ls: () => `<div class="term-block">
+<span class="tc-blue">drwxr-xr-x</span>  <span class="tc-green">skills/</span><br>
+<span class="tc-blue">drwxr-xr-x</span>  <span class="tc-green">projects/</span><br>
+<span class="tc-blue">drwxr-xr-x</span>  <span class="tc-green">experience/</span><br>
+<span class="tc-blue">-rw-r--r--</span>  <span class="tc-text">README.md</span><br>
+<span class="tc-blue">-rw-r--r--</span>  <span class="tc-text">cv_alessandro_stapane.pdf</span><br>
+<span class="tc-blue">-rwxr-xr-x</span>  <span class="tc-amber">passion.java</span> <span class="tc-gray">← sempre in esecuzione</span>
+</div>`,
+
+  matrix: () => {
+    const wrap = document.getElementById('terminal-wrap');
+    wrap.style.transition='all .3s';
+    wrap.style.filter='hue-rotate(90deg) saturate(2)';
+    setTimeout(()=>wrap.style.filter='',2000);
+    return `<div class="term-block"><span class="tc-green">Wake up, Neo... Il Matrix ha te. 💊</span><br><span class="tc-gray">(effetto di 2s)</span></div>`;
+  },
+
   clear: () => { document.getElementById('termOutput').innerHTML = ''; return null; }
 };
 
@@ -1231,7 +1393,60 @@ setTimeout(()=>{
     }, i * 160);
   });
 }, 400);
-function handleSend(){const t=T[lang];document.getElementById('toast-title').textContent=t['toast.title'];document.getElementById('toast-body').textContent=t['toast.body'];bootstrap.Toast.getOrCreateInstance(document.getElementById('contactToast')).show();}
+// EmailJS — configura su emailjs.com (gratuito)
+// 1. Crea account su emailjs.com
+// 2. Aggiungi un Email Service (Gmail consigliato)
+// 3. Crea un Template con variabili: {{from_name}}, {{from_email}}, {{message}}
+// 4. Sostituisci i 3 valori qui sotto
+const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
+if(window.emailjs) emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+async function handleSend() {
+  const btn = document.getElementById('send-btn');
+  const name    = document.getElementById('cf_name').value.trim();
+  const email   = document.getElementById('cf_email').value.trim();
+  const message = document.getElementById('cf_message').value.trim();
+  if(!name || !email || !message) {
+    btn.textContent = '⚠ Compila tutti i campi'; btn.style.background='#f38ba8';
+    setTimeout(()=>{ btn.innerHTML=T[lang]['cf.send']; btn.style.background=''; },2500);
+    return;
+  }
+  btn.textContent = '⏳ Invio...'; btn.disabled = true;
+  try {
+    if(window.emailjs && EMAILJS_SERVICE_ID !== 'YOUR_SERVICE_ID') {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { from_name:name, from_email:email, message });
+    }
+    document.getElementById('cf_name').value='';
+    document.getElementById('cf_email').value='';
+    document.getElementById('cf_message').value='';
+    document.getElementById('form-success').style.display='block';
+    setTimeout(()=>document.getElementById('form-success').style.display='none',5000);
+    const t=T[lang];
+    document.getElementById('toast-title').textContent=t['toast.title'];
+    document.getElementById('toast-body').textContent=t['toast.body'];
+    bootstrap.Toast.getOrCreateInstance(document.getElementById('contactToast')).show();
+  } catch(err) {
+    btn.textContent='✗ Errore — riprova'; btn.style.background='#f38ba8';
+  } finally {
+    setTimeout(()=>{ btn.innerHTML=T[lang]['cf.send']; btn.style.background=''; btn.disabled=false; },3000);
+  }
+}
+
+// Theme toggle
+function toggleTheme(){
+  const isLight = document.body.classList.toggle('light');
+  document.getElementById('themeToggle').textContent = isLight ? '🌑' : '🌙';
+  localStorage.setItem('as_theme', isLight ? 'light' : 'dark');
+}
+if(localStorage.getItem('as_theme')==='light'){ document.body.classList.add('light'); document.getElementById('themeToggle').textContent='🌑'; }
+
+// Language bars
+const langObs = new IntersectionObserver(entries => entries.forEach(e=>{
+  if(e.isIntersecting){ e.target.querySelectorAll('.lang-bar[data-width]').forEach(b=>b.style.width=b.getAttribute('data-width')+'%'); langObs.unobserve(e.target); }
+}),{threshold:.4});
+document.querySelectorAll('.lang-card').forEach(c=>langObs.observe(c));
 </script>
 </body>
 </html>
